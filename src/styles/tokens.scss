@@ -1,0 +1,28 @@
+$tokens: (
+  primary-color:        #A0D356,
+  primary-background:   #ffffff,
+  secondary-color:      #3A3C42,
+  secondary-background: #ffffff,
+  secondary-hover:      #BCBDC0,
+  background-color:     #ffffff,
+  text-color:           #000000,
+  form-accent:          #f2c301,
+  tertiary-background:  #5196D1,
+  tertiary-hover:       #BCBDC0,
+  footer-font:          #ffffff,
+
+  font-stack:           ('Titillium Web', sans-serif),
+  
+  padding-base:         1rem,
+  margin-base:          1rem,
+);
+
+@mixin export-css-tokens($map, $prefix: '') {
+  @each $key, $val in $map {
+    --#{$prefix}#{$key}: #{$val};
+  }
+}
+
+:root {
+  @include export-css-tokens($tokens);
+}

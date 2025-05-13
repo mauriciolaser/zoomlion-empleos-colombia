@@ -1,0 +1,21 @@
+.container {
+  padding: var(--padding-base);
+}
+
+.form {
+  display: flex;
+  gap: var(--margin-base);
+}
+
+.input {
+  flex: 1;
+  padding: var(--padding-base);
+  border: 1px solid var(--secondary-hover);
+}
+
+.button {
+  padding: var(--padding-base) var(--margin-base);
+  background-color: var(--primary-color);
+  border: none;
+  cursor: pointer;
+}

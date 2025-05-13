@@ -1,0 +1,7 @@
+@use "./index.scss" as *;
+
+:export {
+  @each $key, $val in $tokens {
+    #{$key}: #{$val};
+  }
+}

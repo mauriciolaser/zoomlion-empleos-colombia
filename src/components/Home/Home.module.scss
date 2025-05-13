@@ -1,0 +1,29 @@
+.container {
+  padding: var(--padding-base);
+}
+
+.seguimientoSection,
+.listingsSection {
+  margin-bottom: var(--margin-base);
+}
+
+.button {
+  padding: var(--padding-base) var(--margin-base);
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--margin-base);
+}
+
+.card {
+  padding: var(--padding-base);
+  border: 1px solid var(--secondary-hover);
+  border-radius: 8px;
+  background-color: var(--secondary-background);
+}

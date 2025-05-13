@@ -1,0 +1,28 @@
+@use 'sass:map';
+
+$xxs: 320px; $xs:  480px; $sm: 640px; $md:  768px;
+$lg: 1024px;  $xl: 1280px;  $xxl: 1536px;
+
+$breakpoints: (
+  xxs: $xxs,
+  xs:  $xs,
+  sm:  $sm,
+  md:  $md,
+  lg:  $lg,
+  xl:  $xl,
+  xxl: $xxl
+);
+
+@mixin respond-up($bp) {
+  $val: map.get($breakpoints, $bp);
+  @if $val {
+    @media (min-width: $val) { @content; }
+  } @else { @warn "Breakpoint `#{$bp}` no definido."; }
+}
+
+@mixin respond-down($bp) {
+  $val: map.get($breakpoints, $bp);
+  @if $val {
+    @media (max-width: $val) { @content; }
+  } @else { @warn "Breakpoint `#{$bp}` no definido."; }
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Desarrollador Frontend",
+    "company": "Zoomlion",
+    "location": "Madrid",
+    "description": "Experiencia con React y Vite."
+  },
+  {
+    "id": 2,
+    "title": "Backend Developer",
+    "company": "Zoomlion",
+    "location": "Barcelona",
+    "description": "Experiencia con Node.js y MySQL."
+  }
+]

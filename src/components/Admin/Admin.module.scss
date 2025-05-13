@@ -1,0 +1,12 @@
+.container {
+  padding: var(--padding-base);
+}
+
+.button {
+  margin-right: var(--margin-base);
+  padding: var(--padding-base) var(--margin-base);
+  background-color: var(--tertiary-background);
+  border: none;
+  cursor: pointer;
+  color: var(--footer-font);
+}

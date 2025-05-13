@@ -1,0 +1,36 @@
+# ─────────────────────────────────────────────────────────────────
+#   SPA React + Vite en el subdominio empleos.zoomlion.com.pe
+# ─────────────────────────────────────────────────────────────────
+
+# Prioriza index.html al entrar en /
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1) Si existe el archivo o directorio, servirlo directamente
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 2) Si la URL termina en extensión estática, también servir directo
+  #    (evita fallback de .html para .js, .css, .json, imágenes, etc.)
+  RewriteCond %{REQUEST_URI} \.(?:js|mjs|css|json|map|png|jpe?g|gif|svg|ico|woff2?|ttf|eot)$ [NC]
+  RewriteRule ^ - [L]
+
+  # 3) En cualquier otro caso, entregar index.html (fallback SPA)
+  RewriteRule . index.html [L]
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Imágenes 1 semana
+  ExpiresByType image/jpeg "access plus 1 week"
+  ExpiresByType image/png  "access plus 1 week"
+  ExpiresByType image/svg+xml "access plus 1 week"
+  # CSS/JS 1 día
+  ExpiresByType text/css   "access plus 1 day"
+  ExpiresByType application/javascript "access plus 1 day"
+  ExpiresByType application/json "access plus 1 day"
+</IfModule>
