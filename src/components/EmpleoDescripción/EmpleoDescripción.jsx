@@ -3,26 +3,19 @@ import React from 'react';
 import styles from './EmpleoDescripción.module.scss';
 
 const EmpleoDescripción = ({ posicion, ciudad, fechaLimite, requisitos }) => {
-  // Formateamos la fecha límite en formato "dd/mm/aaaa"
-  const fechaFormateada = new Date(fechaLimite).toLocaleDateString('es-ES');
-
   return (
-    <div className={styles.container}>
+    <div className={styles.empleoDetalle}>
       <h2 className={styles.titulo}>{posicion}</h2>
-      <p className={styles.campo}>
-        <span className={styles.label}>Ciudad:</span> {ciudad}
+      <p className={styles.info}>
+        <strong>Ciudad:</strong> {ciudad}
       </p>
-      <p className={styles.campo}>
-        <span className={styles.label}>Fecha límite:</span> {fechaFormateada}
+      <p className={styles.info}>
+        <strong>Fecha límite:</strong> {fechaLimite}
       </p>
-      <div className={styles.requisitos}>
-        <span className={styles.label}>Requisitos:</span>
-        <ul>
-          {requisitos.map((req, idx) => (
-            <li key={idx}>{req}</li>
-          ))}
-        </ul>
-      </div>
+
+      <h3 className={styles.subtitulo}>Descripción / Requisitos:</h3>
+      {/* Aquí tratamos “requisitos” como un simple párrafo de texto */}
+      <p className={styles.descripcion}>{requisitos}</p>
     </div>
   );
 };

@@ -14,26 +14,26 @@ const Empleo = () => {
 
   useEffect(() => {
     if (!empleoData) {
-      // Si se accede directamente por slug, aquí se podría hacer un fetch para obtener los datos
-      // Ejemplo (pendiente implementar):
-      // fetch(`/api/empleos/${slug}`)
+      // Si se accede directamente por URL (sin pasar state), aquí podrías hacer un fetch:
+      // fetch(`http://localhost/api/empleos.php?id=${slug}`)
       //   .then(res => res.json())
-      //   .then(data => setEmpleoData(data));
+      //   .then(data => setEmpleoData(data[0]));
+      // (Asumiendo que tu PHP admita recibir ?id= y devuelva un array con un solo objeto)
     }
   }, [empleoData, slug]);
 
   if (!empleoData) {
-    return <div>Cargando...</div>;
+    return <div className={styles.loadingText}>Cargando...</div>;
   }
 
   return (
     <div className={styles.empleoContainer}>
       <div className={styles.descripcion}>
         <EmpleoDescripción
-          posicion={empleoData.posicion}
-          ciudad={empleoData.ciudad}
-          fechaLimite={empleoData.fechaLimite}
-          requisitos={empleoData.requisitos}
+          posicion={empleoData.titulo}
+          ciudad={empleoData.ubicacion}
+          fechaLimite={empleoData.fecha_cierre}
+          requisitos={empleoData.descripcion}
         />
       </div>
       <div className={styles.formulario}>
