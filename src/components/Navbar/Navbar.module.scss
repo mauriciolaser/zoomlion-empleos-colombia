@@ -1,6 +1,8 @@
 .navbar {
   display: flex;
   gap: 1rem;
+  width: 100vw;
   padding: var(--padding-base);
-  background-color: var(--primary-background);
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
 }

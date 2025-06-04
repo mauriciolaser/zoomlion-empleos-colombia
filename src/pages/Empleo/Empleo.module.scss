@@ -1,0 +1,20 @@
+/* Archivo: src/pages/Empleo.module.scss */
+
+.empleoContainer {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+
+  @include respond-down(md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.descripcion {
+  /* Opcional: estilos específicos para la sección de descripción */
+}
+
+.formulario {
+  /* Opcional: estilos específicos para la sección del formulario */
+}
