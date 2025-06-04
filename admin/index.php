@@ -39,7 +39,9 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'actualizar-proceso
     require_once __DIR__ . '/acciones/actualizar-proceso.php';
     // actualizar-proceso.php se encarga de devolver JSON de éxito o error
 }
-
+elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'archivar-proceso') {
+    require_once __DIR__ . '/acciones/archivar-proceso.php';
+}
 // 7. Cualquier otra petición (GET sin action=listar, POST sin action=crear o sin action=actualizar-proceso, etc.) devuelve error JSON.
 else {
     http_response_code(400);

@@ -4,7 +4,7 @@
 // 1. Configuración MySQL
 define('DB_HOST',     'localhost');
 define('DB_USER',     'root');
-define('DB_PASSWORD', '');                     // XAMPP: contraseña vacía
+define('DB_PASSWORD', '');
 define('DB_NAME',     'zlcpanel_empleos_db');
 
 // 2. Función para obtener la conexión
@@ -20,6 +20,3 @@ function obtenerConexion() {
     $mysqli->set_charset('utf8');
     return $mysqli;
 }
-
-// 3. (Opcional) Parámetros extra, constantes, rutas, etc.
-//    Por ejemplo, podrías definir una constante BASE_PATH o similar si lo necesitas.

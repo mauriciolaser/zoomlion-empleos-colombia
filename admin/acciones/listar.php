@@ -3,10 +3,10 @@
 
 header('Content-Type: application/json; charset=UTF-8');
 
-// Incluir config.php (desde /admin/acciones subimos un nivel)
 require_once __DIR__ . '/../config.php';
 $mysqli = obtenerConexion();
 
+// Ahora seleccionamos también el campo `archivado`
 $query = "
     SELECT 
       id, 
@@ -14,7 +14,8 @@ $query = "
       empresa, 
       ubicacion, 
       fecha_publicacion, 
-      fecha_cierre
+      fecha_cierre,
+      archivado
     FROM empleos
     ORDER BY fecha_publicacion DESC
 ";
@@ -31,12 +32,14 @@ if (!$result) {
 $empleos = [];
 while ($row = $result->fetch_assoc()) {
     $empleos[] = [
-        'id'                => $row['id'],
+        'id'                => (int) $row['id'],
         'titulo'            => $row['titulo'],
         'empresa'           => $row['empresa'],
         'ubicacion'         => $row['ubicacion'],
         'fecha_publicacion' => $row['fecha_publicacion'],
-        'fecha_cierre'      => $row['fecha_cierre']
+        'fecha_cierre'      => $row['fecha_cierre'],
+        // Convertimos archivado a entero (0 o 1)
+        'archivado'         => (int) $row['archivado'],
     ];
 }
 

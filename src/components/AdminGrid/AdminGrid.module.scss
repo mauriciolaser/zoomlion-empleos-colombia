@@ -79,9 +79,9 @@
 /* Botón “← Volver a procesos” con estilo de botón real */
 .botonVolver {
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--secondary-color);
   border: none;
-  padding: var(--padding-base) var(--padding-doble);
+  padding: 0.75rem;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9rem;
@@ -93,7 +93,8 @@
   gap: var(--margin-base);
 
   &:hover {
-    background-color: var(--primary-color-dark);
+    background-color: transparent;
+    border: var(--primary-color) 1px solid;
   }
 }
 
