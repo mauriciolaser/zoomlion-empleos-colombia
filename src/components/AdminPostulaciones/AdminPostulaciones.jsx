@@ -1,9 +1,7 @@
-// /src/components/AdminPostulaciones/AdminPostulaciones.jsx
-
 import React, { useEffect, useState } from 'react';
 import styles from './AdminPostulaciones.module.scss';
 
-const AdminPostulaciones = () => {
+const AdminPostulaciones = ({ empleoId = null }) => {
   const [postulaciones, setPostulaciones] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +9,9 @@ const AdminPostulaciones = () => {
   const [modalAbierto, setModalAbierto] = useState(false);
 
   useEffect(() => {
-    // Usamos VITE_EMPLEOS_URL para apuntar al backend de admin
+    // Construimos la URL. Si se pasa empleoId, lo incluimos como query param para backend (opcional),
+    // pero en caso de que el backend no filtre por parámetro, filtraremos en frontend.
+    // Igualmente pedimos todo y luego filtramos localmente.
     const url = `${import.meta.env.VITE_EMPLEOS_URL}/index.php?action=ver-postulaciones&t=${Date.now()}`;
 
     fetch(url)
@@ -20,7 +20,15 @@ const AdminPostulaciones = () => {
         return resp.json();
       })
       .then((data) => {
-        setPostulaciones(data);
+        // Si se recibe empleoId, filtramos; si no, dejamos completo.
+        if (empleoId) {
+          const filtradas = data.filter(
+            (p) => Number(p.empleo_id) === Number(empleoId)
+          );
+          setPostulaciones(filtradas);
+        } else {
+          setPostulaciones(data);
+        }
         setCargando(false);
       })
       .catch((err) => {
@@ -28,7 +36,7 @@ const AdminPostulaciones = () => {
         setError('No se pudo cargar la lista de postulaciones');
         setCargando(false);
       });
-  }, []);
+  }, [empleoId]);
 
   const abrirModal = (postulacion) => {
     setPostulacionSeleccionada(postulacion);
@@ -50,16 +58,28 @@ const AdminPostulaciones = () => {
 
   return (
     <div className={styles.contenedor}>
-      <h2 className={styles.titulo}>Postulaciones Recibidas</h2>
+      {/* Si se está filtrando por un empleo concreto, podemos cambiar el título */}
+      <h2 className={styles.titulo}>
+        {empleoId
+          ? `Postulaciones para el proceso #${empleoId}`
+          : 'Postulaciones Recibidas'}
+      </h2>
+
       {postulaciones.length === 0 ? (
         <p className={styles.sinResultados}>No hay postulaciones por mostrar.</p>
       ) : (
         <div className={styles.grilla}>
           {postulaciones.map((post) => (
             <div key={post.id} className={styles.card}>
-              <p><strong>ID:</strong> {post.id}</p>
-              <p><strong>Usuario ID:</strong> {post.usuario_id}</p>
-              <p><strong>Empleo ID:</strong> {post.empleo_id}</p>
+              <p>
+                <strong>ID:</strong> {post.id}
+              </p>
+              <p>
+                <strong>Usuario ID:</strong> {post.usuario_id}
+              </p>
+              <p>
+                <strong>Empleo ID:</strong> {post.empleo_id}
+              </p>
               <p className={styles.fecha}>
                 <strong>Fecha:</strong>{' '}
                 {new Date(post.fecha_postulacion).toLocaleString('es-ES', {
@@ -91,14 +111,25 @@ const AdminPostulaciones = () => {
             </button>
             <h3>Detalle de la Postulación (ID: {postulacionSeleccionada.id})</h3>
             <div className={styles.detalle}>
-              <p><strong>Usuario ID:</strong> {postulacionSeleccionada.usuario_id}</p>
-              <p><strong>Empleo ID:</strong> {postulacionSeleccionada.empleo_id}</p>
-              <p><strong>Mensaje:</strong></p>
-              <p className={styles.mensaje}>{postulacionSeleccionada.mensaje || '— Sin mensaje —'}</p>
+              <p>
+                <strong>Usuario ID:</strong> {postulacionSeleccionada.usuario_id}
+              </p>
+              <p>
+                <strong>Empleo ID:</strong> {postulacionSeleccionada.empleo_id}
+              </p>
+              <p>
+                <strong>Mensaje:</strong>
+              </p>
+              <p className={styles.mensaje}>
+                {postulacionSeleccionada.mensaje || '— Sin mensaje —'}
+              </p>
               <p>
                 <strong>Archivo:</strong>{' '}
                 <a
-                  href={`${import.meta.env.VITE_EMPLEOS_URL.replace('/admin', '')}/uploads/${postulacionSeleccionada.archivo}`}
+                  href={`${import.meta.env.VITE_EMPLEOS_URL.replace(
+                    '/admin',
+                    ''
+                  )}/uploads/${postulacionSeleccionada.archivo}`}
                   download
                   target="_blank"
                   rel="noopener noreferrer"
@@ -108,7 +139,9 @@ const AdminPostulaciones = () => {
               </p>
               <p>
                 <strong>Fecha de Postulación:</strong>{' '}
-                {new Date(postulacionSeleccionada.fecha_postulacion).toLocaleString('es-ES', {
+                {new Date(
+                  postulacionSeleccionada.fecha_postulacion
+                ).toLocaleString('es-ES', {
                   year: 'numeric',
                   month: '2-digit',
                   day: '2-digit',
@@ -119,10 +152,7 @@ const AdminPostulaciones = () => {
               </p>
             </div>
             {/* Botón adicional para cerrar el modal */}
-            <button
-              className={styles.botonVerMas}
-              onClick={cerrarModal}
-            >
+            <button className={styles.botonVerMas} onClick={cerrarModal}>
               CERRAR
             </button>
           </div>

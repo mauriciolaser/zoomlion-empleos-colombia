@@ -1,3 +1,6 @@
+/* --- src/components/AdminGrid/AdminGrid.module.scss --- */
+
+/* 1) Grilla de procesos */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -5,6 +8,7 @@
   margin-top: var(--margin-base);
 }
 
+/* Cada tarjeta de proceso */
 .card {
   background-color: var(--secondary-background);
   border: 1px solid var(--border-color);
@@ -12,19 +16,21 @@
   padding: var(--padding-base);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.1s ease;
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
 }
 
+/* Título dentro de cada tarjeta */
 .title {
   margin: 0 0 var(--margin-base) 0;
   font-size: 1.2rem;
   color: var(--text-primary);
 }
 
+/* Información adicional dentro de la tarjeta */
 .info {
   margin: 4px 0;
   font-size: 0.9rem;
@@ -35,6 +41,63 @@
   }
 }
 
+/* Botón “Ver más” dentro de la tarjeta */
+.botonVerMas {
+  margin-top: var(--margin-base);
+  padding: calc(var(--padding-base) / 2) var(--padding-base);
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: var(--primary-color-dark);
+  }
+}
+
+/* Contenedor que engloba la parte inferior (o panel de detalle) */
+.contenedorInferior {
+  margin-top: var(--margin-doble);
+}
+
+/* 
+  2) “Header inferior”: aquí alineamos el botón “Volver a procesos” 
+     en la misma línea que el panel (o que un futuro título). 
+     Usamos flex para que quede alineado horizontalmente. 
+*/
+.headerInferior {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Si quieres centrar, pon center; o space-between si hay otro elemento en la derecha */
+  gap: var(--margin-base);
+  margin-bottom: var(--margin-base);
+}
+
+/* Botón “← Volver a procesos” con estilo de botón real */
+.botonVolver {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: var(--padding-base) var(--padding-doble);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--margin-base);
+
+  &:hover {
+    background-color: var(--primary-color-dark);
+  }
+}
+
+/* Mensajes de estado (cargando / sin procesos / error) */
 .status {
   font-size: 1rem;
   color: var(--text-secondary);

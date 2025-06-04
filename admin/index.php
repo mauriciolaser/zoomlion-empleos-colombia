@@ -34,8 +34,13 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $action === 'ver-postulaciones')
     // ver-postulaciones.php ya hace echo json_encode(...) y exit;
 }
 
-// 6. Cualquier otra petición (GET sin action=listar, POST sin action=crear, o cualquier PUT/DELETE) 
-//    devuelve un error JSON.
+// 6. ENDPOINT "actualizar-proceso": POST /index.php?action=actualizar-proceso recibe JSON y actualiza el proceso
+elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'actualizar-proceso') {
+    require_once __DIR__ . '/acciones/actualizar-proceso.php';
+    // actualizar-proceso.php se encarga de devolver JSON de éxito o error
+}
+
+// 7. Cualquier otra petición (GET sin action=listar, POST sin action=crear o sin action=actualizar-proceso, etc.) devuelve error JSON.
 else {
     http_response_code(400);
     header('Content-Type: application/json; charset=UTF-8');

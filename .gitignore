@@ -13,6 +13,8 @@ dist-ssr
 *.local
 .env
 scripts/deploy-config.json
+admin/config.php
+api/config.php
 
 # Editor directories and files
 .vscode/*
