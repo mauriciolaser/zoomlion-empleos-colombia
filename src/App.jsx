@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home/Home';
 import Seguimiento from './components/Seguimiento/Seguimiento';
 import Empleo from './pages/Empleo/Empleo';
-import Admin from './components/Admin/Admin';
+import Admin from './pages/Admin/Admin';
 
 function App() {
   return (

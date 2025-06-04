@@ -16,50 +16,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // 2. Leer acción
 $action = $_GET['action'] ?? '';
 
-// 3. Si viene un POST, forzar que action sea “crear”
-//    De lo contrario, devolver error JSON
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if ($action !== 'crear') {
-        http_response_code(400);
-        echo json_encode(['error' => 'Acción no válida en POST'], JSON_UNESCAPED_UNICODE);
-        exit;
-    }
+// 3. ENDPOINT "listar": GET /index.php?action=listar devuelve JSON de empleos
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && $action === 'listar') {
+    require_once __DIR__ . '/acciones/listar.php';
+    // listar.php ya hace echo json_encode(...) y exit;
+}
 
-    // Procesar creación de empleo
-    // Incluir el archivo que contiene sólo la lógica de INSERT (sin headers CORS adicionales)
+// 4. ENDPOINT "crear": POST /index.php?action=crear recibe datos y devuelve JSON
+elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'crear') {
     require_once __DIR__ . '/acciones/crear-empleo.php';
-    exit;
+    // crear-empleo.php debería devolver algo tipo { success: true, id: ... } o { error: ... }
 }
 
-// 4. Petición GET: panel de administración
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header('Location: ../login.php');
-    exit;
+// 5. ENDPOINT "ver-postulaciones": GET /index.php?action=ver-postulaciones devuelve JSON de postulaciones
+elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $action === 'ver-postulaciones') {
+    require_once __DIR__ . '/acciones/ver-postulaciones.php';
+    // ver-postulaciones.php ya hace echo json_encode(...) y exit;
 }
 
-switch ($action) {
-    case 'listar':
-        // Incluir script que imprime HTML o JSON con la lista de empleos
-        require_once __DIR__ . '/acciones/listar.php';
-        break;
-
-    default:
-        // Página principal del panel
-        ?>
-        <!DOCTYPE html>
-        <html lang="es">
-        <head>
-          <meta charset="UTF-8">
-          <title>Panel de Administración</title>
-        </head>
-        <body>
-          <h2>Panel de Administración</h2>
-          <ul>
-            <li><a href="index.php?action=listar">Ver procesos</a></li>
-            <!-- El front-end React hará POST a index.php?action=crear -->
-          </ul>
-        </body>
-        </html>
-        <?php
-        break;
+// 6. Cualquier otra petición (GET sin action=listar, POST sin action=crear, o cualquier PUT/DELETE) 
+//    devuelve un error JSON.
+else {
+    http_response_code(400);
+    header('Content-Type: application/json; charset=UTF-8');
+    echo json_encode([
+        'error' => 'Acción no válida o método HTTP no soportado'
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
 }
