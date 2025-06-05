@@ -49,7 +49,7 @@ const HomeTestimonials = () => {
   return (
     <LayoutGroup>
       {/* Título centrado */}
-      <h2 className={styles.heading}>testimonios</h2>
+      <h2 className={styles.heading}>Testimonios</h2>
 
       <section className={styles.container}>
         {/* Main card animada con AnimatePresence */}
