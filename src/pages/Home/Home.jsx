@@ -3,6 +3,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useEmpleos from '../../hooks/useEmpleos';
+import HomeHero from '../../components/HomeHero/HomeHero'
+import GeneralContacto from '../../components/GeneralContacto/GeneralContacto'
+import HomeTestimonials from '../../components/HomeTestimonials/HomeTestimonials'
+
 import styles from './Home.module.scss';
 
 const Home = () => {
@@ -17,13 +21,9 @@ const Home = () => {
   }
 
   return (
+    <>
+          <HomeHero />
     <div className={styles.container}>
-      <section className={styles.seguimientoSection}>
-        <h2>Seguimiento de postulaciones</h2>
-        <Link to="/seguimiento">
-          <button className={styles.button}>Ingresar código de seguimiento</button>
-        </Link>
-      </section>
 
       <section className={styles.listingsSection}>
         <h2>Ofertas de empleo</h2>
@@ -49,9 +49,14 @@ const Home = () => {
             </div>
           ))}
         </div>
+                  <HomeTestimonials />
+
       </section>
+                               <GeneralContacto />
     </div>
+    </>
   );
 };
+
 
 export default Home;

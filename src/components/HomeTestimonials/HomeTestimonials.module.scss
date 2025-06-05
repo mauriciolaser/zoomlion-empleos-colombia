@@ -1,0 +1,90 @@
+/* Estilos para HomeTestimonials */
+
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 400px; /* Altura fija para controlar diseño */
+  gap: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Wrapper para el main card (para centrar/manejar layoutId) */
+.mainWrapper {
+  flex: 1 1 50%;
+  position: relative;
+}
+
+/* Card principal ocupa 50% del ancho */
+.mainCard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Overlay oscuro semitransparente para el main card */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.title {
+  color: #fff;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+}
+
+.body {
+  color: #f0f0f0;
+  font-size: 1rem;
+}
+
+/* Contenedor de las cards secundarias a la derecha en fila */
+.sideCards {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: row; /* En fila */
+  gap: 1rem;
+}
+
+/* Cada card secundaria ocupa la mitad del ancho del lado derecho y toda la altura */
+.sideCard {
+  position: relative;
+  flex: 1 1 50%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Overlay oscuro para cards secundarias */
+.sideOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.sideTitle {
+  color: #fff;
+  margin: 0;
+  font-size: 1.2rem;
+  text-align: center;
+}

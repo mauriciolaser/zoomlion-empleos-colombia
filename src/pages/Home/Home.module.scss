@@ -3,6 +3,10 @@
   flex-direction: column;
   gap: 2rem;
   padding: 2rem;
+  width: 100vw;
+  @include respond-up(md){
+    padding: 0rem;
+  }
 }
 
 .seguimientoSection {
@@ -35,6 +39,8 @@
 }
 
 .listingsSection {
+  max-width: 1200px;
+  margin: 0 auto;
   h2 {
     margin-bottom: 1rem;
     font-size: 1.75rem;

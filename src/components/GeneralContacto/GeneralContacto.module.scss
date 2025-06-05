@@ -1,0 +1,60 @@
+/* src/components/GeneralContacto/GeneralContacto.module.scss */
+$transition-speed: 0.3s;
+$hover-scale: 1.05;
+
+.container {
+  width: 100vw;
+  background-image: url('../../assets/images/GeneralContacto/general-contacto-background.webp');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  padding: 0em;
+
+  @include respond-up(md){
+    padding: 2em;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+}
+
+.loading {
+  padding: 2rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.5rem;
+  width: 100%;
+  margin: 0;
+  text-align: left;
+  min-width: 0;
+
+  > * {
+    max-width: 540px;
+    width: 100%;
+  }
+
+  > * + * {
+    margin-top: 1rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin: 0;
+  }
+}

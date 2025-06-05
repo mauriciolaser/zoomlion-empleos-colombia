@@ -1,0 +1,205 @@
+/* src/components/Footer/Footer.module.scss */
+
+.footer {
+  background: var(--secondary-color);
+  padding: 20px 0;
+  width: 100vw;
+  text-align: center;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  @include respond-up(md) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include respond-up(md) {
+    align-items: flex-start;
+    width: 40%;
+  }
+}
+
+.logo {
+  height: 50px;
+  margin-bottom: 1em;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include respond-up(md) {
+    align-items: flex-start;
+  }
+}
+
+.text {
+  margin: 0.2em 0;
+  font-size: 14px;
+  color: var(--footer-font);
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.social {
+  display: flex;
+  margin-top: 0.5em;
+
+  @include respond-up(md){
+      margin-top: 1rem;
+  }
+}
+
+.iconWrapper {
+  width: 30px;
+  height: 30px;
+  background: #aace39;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.5em;
+  cursor: pointer;
+}
+
+.icon {
+  font-size: 18px;
+  color: var(--color-secondary);
+}
+
+.wrapperLines {
+  display: none;
+
+  @include respond-up(md) {
+    display: block;
+    width: 20%;
+    margin-left: 15%;
+    color: var(--footer-secondary);
+  }
+
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 0.5em;
+  }
+}
+
+.wrapperPages {
+  display: none;
+
+  @include respond-up(md) {
+    display: block;
+    width: 20%;
+    font-weight: 600;
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 0.5em;
+    color: white;
+  }
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+
+}
+
+.link {
+  color: var(--footer-font);
+  font-size: 14px;
+  font-family: 'Titillium Web', sans-serif;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--primary-color);
+  }
+}
+
+.bottom {
+  border-top: 1px solid #e0e0e0;
+  max-width: 1200px;
+  margin: 2em auto 0;
+  padding: 1em 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include respond-up(md) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include respond-up(md) {
+    align-items: flex-start;
+  }
+
+  .link + .link {
+    margin-top: 0.5em;
+  }
+}
+
+.mirage {
+  margin-top: 1em;
+
+  @include respond-up(md) {
+    margin-top: 0;
+  }
+}
+
+.mirageLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  font-family: 'Titillium Web', sans-serif;
+  text-decoration: none;
+  color: var(--footer-font);
+
+  &:hover {
+    color: var(--primary-color);
+  }
+
+  @include respond-up(md) {
+    flex-direction: row; 
+  }
+}
+
+.mirageLogo {
+  height: 36px;
+  margin-bottom: 0.25em;
+
+  @include respond-up(md) {
+    margin-right: 0.5em;
+    margin-bottom: 0;
+  }
+}

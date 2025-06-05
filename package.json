@@ -13,7 +13,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "framer-motion": "^12.16.0",
     "ftp-deploy": "^2.4.7",
+    "lottie-react": "^2.4.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-gtm-module": "^2.0.11",

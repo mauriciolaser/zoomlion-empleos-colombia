@@ -1,0 +1,84 @@
+/* src/components/GeneralContactoCard/GeneralContactoCard.module.scss */
+.card {
+  position: relative;
+  padding: 1rem;
+  overflow: hidden;
+  box-shadow: 0 .25rem .625rem rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 18em;       /* de 20em a 18em */
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: var(--color-secondary);
+  z-index: 0;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--color-secondary);
+  border-radius: .5rem;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.header {
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 2.5rem;
+  color: var(--color-primary);
+}
+
+.details {
+  margin-bottom: 1rem;
+}
+
+.details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.details li {
+  font-size: 1.1rem;
+  margin-bottom: .5rem;
+}
+
+.address {
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: normal;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;  /* espacio arriba, sin estirar la tarjeta */
+}
+
+.button {
+  cursor: pointer;
+  border-radius: 5px;
+  overflow: hidden;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.buttonContent {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.noSelection {
+  color: white;
+  font-style: italic;
+  text-align: center;
+  margin-top: 1rem;
+}

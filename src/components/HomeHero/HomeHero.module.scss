@@ -1,0 +1,128 @@
+.heroContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;           // Ocupa toda la altura del viewport en móvil
+  background-color: transparent; // Puedes cambiar a cualquier color o dejar transparente
+
+  @include respond-up(md) {
+    height: 70vh;         // En pantallas ≥ md, altura en 60vh
+  }
+
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1200px;   // Ajusta según necesites un ancho máximo
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    color: #333;
+
+    @include respond-up(md) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Texto a la izquierda */
+    .textContainer {
+      width: 100%;
+      text-align: center;
+
+      @include respond-up(md) {
+        width: 50%;
+        text-align: left;
+      }
+
+      .visionLabel {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+        color: #222;
+
+        @include respond-up(md) {
+          font-size: 3.5rem;
+          margin-bottom: 1rem;
+        }
+      }
+
+      .visionSublabel {
+        font-size: 1.5rem;
+        max-width: 100%;
+        margin: 0 0 1.5rem;
+        white-space: normal;
+        overflow: visible;
+        color: #555;
+
+        @include respond-up(md) {
+          font-size: 2.3rem;
+          margin-bottom: 2rem;
+        }
+
+        @include respond-up(lg) {
+          max-width: 90%;
+        }
+
+        .cursor {
+          display: inline-block;
+          margin-left: 2px;
+        }
+      }
+
+      .actionContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        @include respond-up(md) {
+          flex-direction: row;
+          gap: 2rem;
+        }
+
+        .ctaButton,
+        .ctaButtonOutline {
+          padding: 0.75rem 1.5rem;
+          font-size: 1rem;
+          border-radius: 2px;
+          cursor: pointer;
+          border: none;
+        }
+
+        .ctaButton {
+          background-color: var(--color-primary);
+                    border: 1px solid var(--color-primary);
+          color: var(--color-secondary);
+          font-weight: 600;
+        }
+
+        .ctaButtonOutline {
+          background-color: transparent;
+          border: 1px solid #333;
+          color: #333;
+        }
+      }
+    }
+
+    /* Animación Lottie a la derecha */
+    .animationContainer {
+      width: 100%;
+      max-width: 400px; // Ajusta el ancho máximo que necesites
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include respond-up(md) {
+        width: 45%;
+      }
+
+      .lottie {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}

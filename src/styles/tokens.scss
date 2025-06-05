@@ -1,28 +1,47 @@
+// tokens.scss
+// 1) Define todos tus valores “hard” en un solo mapa
 $tokens: (
-  primary-color:        #A0D356,
-  primary-background:   #ffffff,
-  secondary-color:      #3A3C42,
-  secondary-background: #ffffff,
-  secondary-hover:      #BCBDC0,
-  background-color:     #ffffff,
-  text-color:           #000000,
-  form-accent:          #f2c301,
-  tertiary-background:  #5196D1,
-  tertiary-hover:       #BCBDC0,
-  tertiarty-color:      #3A3C42,
+  // colores
+  primary-color: #A0D356,
+  primary-background: #ffffff,
+  color-primary: #AECA3A,
+  color-secondary: #333740,
+  color-tertiary: #808185,
+  color-secondary-active: #FFFFFF,
+  section-background-gray: #BCBDC0,
+  secondary-color: #3A3C42,
+  background-secondary: #ffffff,
+  background-tertiary: #f8f9fa,
+  border-tertiary: #B4B4B4,
+  secondary-hover: #BCBDC0,
+  background-color: #ffffff,
+  text-color: #000000,
+  form-accent: #f2c301,
+  tertiary-background: #5196D1,
+  tertiary-hover: #BCBDC0,
+  footer-font: #ffffff,
+  footer-secondary: #DFDFDF,
+  section-background-gray-rgb: (245, 245, 245),
 
-  font-stack:           ('Titillium Web', sans-serif),
-  
-  padding-base:         1rem,
-  margin-base:          1rem,
+  font-stack: ('Titillium Web', sans-serif),
+
+  padding-base: 1rem,
+  margin-base: 1rem,
+  mobile-title: 1.4rem,
+  desktop-title: 2.5rem,
+  mobile-subtitle: 1.2rem,
+  desktop-subtitle: 1.7rem,
+  mobile-text: 1rem,
 );
 
+// 2) Mixin para emitir custom properties desde $tokens
 @mixin export-css-tokens($map, $prefix: '') {
   @each $key, $val in $map {
     --#{$prefix}#{$key}: #{$val};
   }
 }
 
+// 3) Inserta en :root
 :root {
   @include export-css-tokens($tokens);
 }
