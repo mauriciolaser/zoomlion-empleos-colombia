@@ -2,9 +2,8 @@
   {
       "id": 1,
       "pais": "Peru",
-      "correo": "ventas@zoomlion.com",
+      "correo": "empleos@zoomlion.com.pe",
       "direccion": "Calle las Orquídeas 675. Oficina 1202. Lima, 15046 - San Isidro",
-      "representante": "José Manuel Cerna",
       "telefono": "+5112131330",
       "lat": -12.0923,
       "lng": -77.0465

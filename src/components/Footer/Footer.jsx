@@ -4,7 +4,7 @@ import styles from './Footer.module.scss';
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import logo from '../../assets/images/Footer/logo-footer.webp';
-import logoMirage from '../../assets/images/Footer/logo-mirage.webp'; // <-- Nueva importación
+import logoMirage from '../../assets/images/Footer/logo-mirage.webp';
 
 // Hover animation settings
 const iconHover = {
@@ -26,80 +26,63 @@ const Footer = () => {
     });
   };
 
-  const lines = [
-    { name: 'Agricultura', slug: 'agricultura' },
-    { name: 'Grúas torre', slug: 'gruas-torre' },
-    { name: 'Concreto', slug: 'concreto' },
-    { name: 'Minería', slug: 'mineria' },
-    { name: 'Grúas móviles', slug: 'gruas-moviles' },
-    { name: 'Montacargas', slug: 'montacargas' },
-    { name: 'Elevación', slug: 'elevacion' },
-    { name: 'Excavadoras', slug: 'movimiento-de-tierras' },
-  ];
-
-  const pages = [
-    { name: 'Productos', slug: 'productos' },
-    { name: 'Servicios', slug: 'servicios' },
-    { name: 'Noticias', slug: 'noticias' },
-    { name: 'Contacto', slug: 'contacto' },
-  ];
-
   return (
     <footer className={styles.footer}>
-      {/* Sección superior: logo + contacto, líneas y páginas (solo en desktop) */}
       <div className={styles.top}>
-        <div className={styles.left}>
+        {/* Columna 1: Logo y redes sociales */}
+        <div className={styles.column}>
           <img src={logo} alt="ZoomLion Logo" className={styles.logo} />
-          <div className={styles.info}>
-            <p className={styles.text}>+5112131330</p>
-            <p className={styles.text}>empleos@zoomlion.com.pe</p>
-            <p className={styles.text}>
-              Calle las Orquídeas 675, Oficina 1202. Lima, 15046 - San Isidro
-            </p>
-            <div className={styles.social}>
-              <motion.a
-                href="https://facebook.com/ZoomlionPeruRegion"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.iconWrapper}
-                whileHover={iconHover}
-              >
-                <FaFacebookF className={styles.icon} />
-              </motion.a>
-              <motion.a
-                href="https://instagram.com/zoomlion.peru"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.iconWrapper}
-                whileHover={iconHover}
-              >
-                <FaInstagram className={styles.icon} />
-              </motion.a>
-              <motion.a
-                href="https://www.linkedin.com/company/zoomlion-peru/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.iconWrapper}
-                whileHover={iconHover}
-              >
-                <FaLinkedinIn className={styles.icon} />
-              </motion.a>
-              <motion.a
-                href="https://www.youtube.com/@ZoomlionLatam"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.iconWrapper}
-                whileHover={iconHover}
-              >
-                <FaYoutube className={styles.icon} />
-              </motion.a>
-            </div>
+          <div className={styles.social}>
+            <motion.a
+              href="https://facebook.com/ZoomlionPeruRegion"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.iconWrapper}
+              whileHover={iconHover}
+            >
+              <FaFacebookF className={styles.icon} />
+            </motion.a>
+            <motion.a
+              href="https://instagram.com/zoomlion.peru"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.iconWrapper}
+              whileHover={iconHover}
+            >
+              <FaInstagram className={styles.icon} />
+            </motion.a>
+            <motion.a
+              href="https://www.linkedin.com/company/zoomlion-peru/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.iconWrapper}
+              whileHover={iconHover}
+            >
+              <FaLinkedinIn className={styles.icon} />
+            </motion.a>
+            <motion.a
+              href="https://www.youtube.com/@ZoomlionLatam"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.iconWrapper}
+              whileHover={iconHover}
+            >
+              <FaYoutube className={styles.icon} />
+            </motion.a>
           </div>
         </div>
-      </div>
 
-      <div className={styles.bottom}>
-        <div className={styles.copy}>
+        {/* Columna 2: Contacto (teléfono, correo, dirección) */}
+        <div className={styles.column}>
+          <p className={styles.text}>+5112131330</p>
+          <p className={styles.text}>empleos@zoomlion.com.pe</p>
+          <p className={styles.text}>
+            Calle las Orquídeas 675, Oficina 1202. Lima, 15046 - San Isidro
+          </p>
+        </div>
+
+        {/* Columna 3: Copyright, Política de Privacidad y Autoría */}
+        <div className={styles.column}>
           <a
             href="https://en.zoomlion.com"
             target="_blank"
@@ -116,8 +99,6 @@ const Footer = () => {
           >
             Política de Privacidad de Zoomlion
           </a>
-        </div>
-        <div className={styles.mirage}>
           <a
             href="https://www.mirageconsultores.com"
             target="_blank"
@@ -126,11 +107,11 @@ const Footer = () => {
             onClick={handleMirageClick}
           >
             <img
-              src={logoMirage} // <-- Uso de la imagen importada
+              src={logoMirage}
               alt="Mirage Logo"
               className={styles.mirageLogo}
             />
-            Desarrollada por Mirage | Agencia & Consultora
+            Desarrollada por Mirage | Agencia &amp; Consultora
           </a>
         </div>
       </div>

@@ -33,7 +33,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  /* OJO: ya no usamos display: flex; place-items: center; */
+  overflow-x: hidden;
 }
 
 /* ––––– ENCABEZADOS ––––– */
@@ -96,18 +96,18 @@ button:focus-visible {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
   }
 }
 
@@ -118,4 +118,17 @@ button:focus-visible {
 
 .read-the-docs {
   color: #888;
+}
+
+/* ––––– EVITAR OVERFLOW Y CENTRAR EN MOBILE ––––– */
+@include respond-down(md) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+  .container {
+
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }

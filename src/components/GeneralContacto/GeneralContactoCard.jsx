@@ -18,7 +18,6 @@ const GeneralContactoCard = ({ data, onOpenCotizador }) => {
       <div className={styles.card}>
         <div className={styles.details}>
           <ul>
-            <li><strong>Representante:</strong> {representante}</li>
             <li><strong>Teléfono:</strong> {telefono}</li>
             <li className={styles.address}><strong>Dirección: </strong> {direccion}</li>
             <li><strong>Correo:</strong> {correo}</li>

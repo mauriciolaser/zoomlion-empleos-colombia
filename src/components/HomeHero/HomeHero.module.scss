@@ -2,10 +2,10 @@
   position: relative;
   width: 100vw;
   height: 100vh;           // Ocupa toda la altura del viewport en móvil
-  background-color: transparent; // Puedes cambiar a cualquier color o dejar transparente
+  background-color: transparent;
 
   @include respond-up(md) {
-    height: 70vh;         // En pantallas ≥ md, altura en 60vh
+    height: 60vh;         // En pantallas ≥ md, altura en 60vh
   }
 
   .content {
