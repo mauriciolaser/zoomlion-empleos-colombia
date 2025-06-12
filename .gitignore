@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 .env
+.env.production
+.env.development
 scripts/deploy-config.json
 admin/config.php
 api/config.php

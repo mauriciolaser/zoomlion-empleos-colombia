@@ -18,6 +18,7 @@ jobs:
     env:
       VITE_GTM_ID: ${{ secrets.VITE_GTM_ID }}
       VITE_API_URL: ${{ secrets.VITE_API_URL }}
+      VITE_EMPLEOS_URL: ${{ secrets.VITE_EMPLEOS_URL }}
       VITE_APP_URL: ${{ secrets.VITE_APP_URL }}
 
     steps:
@@ -70,7 +71,7 @@ jobs:
           protocol:             ftp
           port:                 21
           local-dir:            dist/
-          server-dir:           public_html/empleos.zoomlion.com.pe
+          server-dir:           empleos.zoomlion.com.pe/
           security:             loose
           dangerous-clean-slate: false
 
