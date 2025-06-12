@@ -28,7 +28,7 @@ jobs:
           node-version: 22.16.0
           cache: npm
 
-      - name: 🔧 Configurar retries/timeout de NPM (.npmrc)
+      - name: 🔧 Ajustar retries/timeout de NPM (.npmrc)
         run: |
           cat > .npmrc <<EOF
           # Más retries/timeout para evitar 503
@@ -38,11 +38,10 @@ jobs:
           fetch-retry-maxtimeout=120000
           EOF
 
-      - name: 📦 Instalar dependencias (sin optional, sin audit/fund)
+      - name: 📦 Instalar dependencias (solo audit/fund off, log mínimo)
         run: |
           npm ci \
             --prefer-offline \
-            --omit=optional \
             --no-audit \
             --no-fund \
             --loglevel=error
