@@ -44,8 +44,8 @@ jobs:
 
       # 3) Instalar dependencias
       - name: 📦 Instalar dependencias
-        run: npm ci
-
+        run: npm ci --verbose
+        
       # 3.b) Instalar yargs para el script CLI
       - name: 📦 Instalar yargs
         run: npm install yargs
