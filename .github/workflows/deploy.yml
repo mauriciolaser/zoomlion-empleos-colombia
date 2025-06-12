@@ -1,10 +1,4 @@
 # .github/workflows/deploy.yml
-# ------------------------------------------------------------
-# ► Despliegue manual (workflow_dispatch) vía FTP
-# ► Stack: React + Vite  •  Node LTS 22.16.0
-# ► Alternative D: pasamos la URL como argumento al script
-# ------------------------------------------------------------
-
 name: Deploy
 
 on:
@@ -14,55 +8,50 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    # ─── Inyectamos las variables VITE_* desde Secrets ─────────────────
     env:
-      VITE_GTM_ID: ${{ secrets.VITE_GTM_ID }}
-      VITE_API_URL: ${{ secrets.VITE_API_URL }}
+      VITE_GTM_ID:      ${{ secrets.VITE_GTM_ID }}
+      VITE_API_URL:     ${{ secrets.VITE_API_URL }}
       VITE_EMPLEOS_URL: ${{ secrets.VITE_EMPLEOS_URL }}
-      VITE_APP_URL: ${{ secrets.VITE_APP_URL }}
+      VITE_APP_URL:     ${{ secrets.VITE_APP_URL }}
 
     steps:
-      # 0) Inicio del workflow
       - name: ⏩ Inicio del workflow
-        run: echo "🚀 Comenzando despliegue de perulainen.com por FTP…"
+        run: echo "🚀 Empezando deploy…"
 
-      # 0.b) Debug: confirmamos que VITE_GTM_ID está disponible
-      - name: 🚨 Debug VITE_GTM_ID
-        run: |
-          echo "VITE_GTM_ID=$VITE_GTM_ID"
-
-      # 1) Checkout del código
-      - name: ⤵️  Checkout código
+      - name: ⤵️ Checkout del código
         uses: actions/checkout@v4
 
-      # 2) Setup de Node.js LTS
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22.16.0
-          cache: npm
 
-      # 3) Instalar dependencias
-      - name: 📦 Instalar dependencias
-        run: npm ci --verbose
-        
-      # 3.b) Instalar yargs para el script CLI
-      - name: 📦 Instalar yargs
-        run: npm install yargs
+      - name: 📦 Cache NPM
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-      # 4) Compilar proyecto con Vite
-      - name: 🏗️  Compilar proyecto
+      - name: 📦 Instalar dependencias sin optional, audit ni fund
         run: |
-          echo "🔨 Construyendo con Vite..."
+          # Desactivar installs opcionales, audit y fund
+          npm config set optional false
+          npm config set audit false
+          npm config set fund false
+          npm ci --loglevel=warn
+
+      - name: 🏗️ Compilar con Vite
+        run: |
+          echo "🔨 Construyendo…"
           npm run build
-          echo "✔️  Build completado en dist/"
+          echo "✔️ Build listo en dist/"
 
-      # 5) Mensaje antes de deploy
-      - name: 📤 Preparando subida FTP
-        run: echo "🔄 Cargando carpeta dist/ a tu hosting…"
+      - name: 📤 Preparando FTP
+        run: echo "🔄 Subiendo dist/…"
 
-      # 6) Despliegue vía FTP
-      - name: 🚚 Upload via FTP
+      - name: 🚚 Deploy vía FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server:               ${{ secrets.FTP_HOST }}
@@ -75,6 +64,5 @@ jobs:
           security:             loose
           dangerous-clean-slate: false
 
-      # 10) Fin del workflow
       - name: ✅ Fin del workflow
-        run: echo "🎉 Deploy completado con éxito."
+        run: echo "🎉 Deploy completado."
