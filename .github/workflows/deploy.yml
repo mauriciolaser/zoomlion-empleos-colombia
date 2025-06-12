@@ -1,4 +1,5 @@
 # .github/workflows/deploy.yml
+
 name: Deploy
 
 on:
@@ -21,26 +22,30 @@ jobs:
       - name: ⤵️ Checkout del código
         uses: actions/checkout@v4
 
-      - name: 🔧 Setup Node.js
+      - name: 🔧 Setup Node.js con cache de NPM
         uses: actions/setup-node@v4
         with:
           node-version: 22.16.0
+          cache: npm
 
-      - name: 📦 Cache NPM
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: 📦 Instalar dependencias sin optional, audit ni fund
+      - name: 🔧 Configurar retries/timeout de NPM (.npmrc)
         run: |
-          # Desactivar installs opcionales, audit y fund
-          npm config set optional false
-          npm config set audit false
-          npm config set fund false
-          npm ci --loglevel=warn
+          cat > .npmrc <<EOF
+          # Más retries/timeout para evitar 503
+          fetch-retries=5
+          fetch-retry-factor=2
+          fetch-retry-mintimeout=20000
+          fetch-retry-maxtimeout=120000
+          EOF
+
+      - name: 📦 Instalar dependencias (sin optional, sin audit/fund)
+        run: |
+          npm ci \
+            --prefer-offline \
+            --omit=optional \
+            --no-audit \
+            --no-fund \
+            --loglevel=error
 
       - name: 🏗️ Compilar con Vite
         run: |
