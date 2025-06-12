@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "deploy": "node scripts/deploy.js",
+    "deploy": "powershell -ExecutionPolicy Bypass -File ./scripts/deploy.ps1",
     "generate-ssr-index": "node scripts/generate-ssr-index.js",
     "sitemap": "node scripts/sitemap-generator.js",
     "lint": "eslint .",
