@@ -175,3 +175,84 @@
   font-size: 1rem;
   margin: 0;
 }
+
+/* al final de HomeTestimonials.module.scss */
+
+.itemsWrapper {
+  /* ya tienes flex-direction: column por defecto */
+  @include respond-down(md) {
+    /* asegurar que ocupe todo el ancho en móvil */
+    width: 100%;
+    gap: 1.5rem;
+  }
+}
+
+.item {
+  position: relative;
+  flex: 1;
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+
+  /* ajustes para móvil */
+  @include respond-down(md) {
+    height: auto;            // quitar altura fija
+    min-height: 200px;       // altura mínima razonable
+    padding-bottom: 1rem;    // espacio extra para el texto
+    background-position: top center; // enfocar parte superior
+  }
+}
+
+.textContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  @include respond-down(md) {
+    position: relative;  // hacerlo relativo para que crezca con el contenido
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 4rem 1rem 1rem; // espacio extra arriba para el avatar
+    box-sizing: border-box;
+  }
+}
+
+.avatarWrapper {
+  position: absolute;
+  bottom: 7rem;
+  left: 0%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #fff;
+  background: #fff;
+  z-index: 2;
+
+  @include respond-down(md) {
+    position: relative;    // para que forme parte del flujo
+    margin: 0 auto 1rem;   // centrar y separar del texto
+    bottom: auto;
+    transform: none;
+  }
+}
+
+.textOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  padding-top: 40px;
+  box-sizing: border-box;
+  z-index: 1;
+
+  @include respond-down(md) {
+    position: relative;
+    padding-top: 0;
+  }
+}
