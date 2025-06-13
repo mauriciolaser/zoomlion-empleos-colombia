@@ -11,7 +11,7 @@ const GeneralContactoCard = ({ data, onOpenCotizador }) => {
     <>
       <div className={styles.header}>
         <h3 className={styles.title}>
-          COMUNÍCATE CON NUESTRO EQUIPO DE EXPERTOS EN PERÚ.
+          COMUNÍCATE CON NUESTRO EQUIPO.
         </h3>
       </div>
 

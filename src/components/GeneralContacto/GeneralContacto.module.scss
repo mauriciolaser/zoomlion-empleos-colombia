@@ -10,10 +10,14 @@ $hover-scale: 1.05;
   overflow: hidden;
   padding: 0em;
 
+  /* Nuevo: centrar wrapper */
+  display: flex;
+  align-items: center;   // centra verticalmente
+  justify-content: center; // centra horizontalmente
 
-  @include respond-up(md){
+  @include respond-up(md) {
     padding: 2em;
-      min-height: 60vh;
+    min-height: 60vh;
   }
 }
 
@@ -25,6 +29,7 @@ $hover-scale: 1.05;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+
 
 }
 
@@ -54,9 +59,4 @@ $hover-scale: 1.05;
     margin-top: 1rem;
   }
 
-  h3 {
-    font-size: 2rem;
-    line-height: 1.2;
-    margin: 0;
-  }
 }

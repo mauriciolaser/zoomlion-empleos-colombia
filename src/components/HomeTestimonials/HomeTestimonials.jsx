@@ -1,35 +1,35 @@
+// src/components/HomeTestimonials/HomeTestimonials.jsx
 import React from 'react';
 import styles from './HomeTestimonials.module.scss';
 import data from '../../data/HomeTestimonials/testimonialsData.json';
 
-// Importar todas las imágenes desde assets/images
+// Imágenes de fondo
 import img1 from '../../assets/images/HomeTestimonials/testimonial1.webp';
-import img2 from '../../assets/images/HomeTestimonials/testimonial2.webp';
-import img3 from '../../assets/images/HomeTestimonials/testimonial3.webp';
-import img4 from '../../assets/images/HomeTestimonials/testimonial4.webp';
-import img5 from '../../assets/images/HomeTestimonials/testimonial5.webp';
-import img6 from '../../assets/images/HomeTestimonials/testimonial6.webp';
-import img7 from '../../assets/images/HomeTestimonials/testimonial7.webp';
-import img8 from '../../assets/images/HomeTestimonials/testimonial8.webp';
+import img2 from '../../assets/images/HomeTestimonials/testimonial1.webp';
+
+// Imágenes de personas (avatar)
+import p1 from '../../assets/images/HomeTestimonials/person1.webp';
+import p2 from '../../assets/images/HomeTestimonials/person2.webp';
+
 
 const imagesMap = {
   'testimonial1.webp': img1,
-  'testimonial2.webp': img2,
-  'testimonial3.webp': img3,
-  'testimonial4.webp': img4,
-  'testimonial5.webp': img5,
-  'testimonial6.webp': img6,
-  'testimonial7.webp': img7,
-  'testimonial8.webp': img8,
+  'testimonial2.webp': img2
+};
+
+const personImagesMap = {
+  'person1.webp': p1,
+  'person2.webp': p2
 };
 
 const HomeTestimonials = () => {
   const testimonials = data.map(item => ({
     ...item,
     image: imagesMap[item.image],
+    person: personImagesMap[item.person],
   }));
 
-  // Solo los dos primeros testimonios
+  // Solo mostrar los dos primeros
   const visibles = testimonials.slice(0, 2);
 
   return (
@@ -42,7 +42,7 @@ const HomeTestimonials = () => {
           <div className={styles.lineRight}></div>
         </div>
 
-        {/* Dos cards 50/50 con texto dentro */}
+        {/* Dos cards 50/50 con texto y avatar */}
         <div className={styles.itemsWrapper}>
           {visibles.map(item => (
             <div
@@ -50,9 +50,18 @@ const HomeTestimonials = () => {
               className={styles.item}
               style={{ backgroundImage: `url(${item.image})` }}
             >
-              <div className={styles.textOverlay}>
-                <h3 className={styles.textTitle}>{item.title}</h3>
-                <p className={styles.textBody}>{item.body}</p>
+              <div className={styles.textContainer}>
+                <div className={styles.avatarWrapper}>
+                  <img
+                    src={item.person}
+                    alt={item.title}
+                    className={styles.avatarImage}
+                  />
+                </div>
+                <div className={styles.textOverlay}>
+                  <h3 className={styles.textTitle}>{item.title}</h3>
+                  <p className={styles.textBody}>{item.body}</p>
+                </div>
               </div>
             </div>
           ))}

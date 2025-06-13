@@ -14,7 +14,7 @@ const cardVariants = {
   },
 };
 
-const GeneralContacto = ({ onOpenCotizador }) => {
+const GeneralContacto = () => {
   return (
     <motion.div
       className={styles.container}
@@ -22,7 +22,6 @@ const GeneralContacto = ({ onOpenCotizador }) => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
     >
-      {/* subwrapper centrado con ancho máximo */}
       <div className={styles.wrapper}>
         <motion.div
           className={styles.cardContainer}
@@ -34,7 +33,6 @@ const GeneralContacto = ({ onOpenCotizador }) => {
             <GeneralContactoCard
               key={index}
               data={item}
-              onOpenCotizador={onOpenCotizador}
             />
           ))}
         </motion.div>
