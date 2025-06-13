@@ -15,9 +15,10 @@ const HomeListings = ({ empleos }) => {
           <div key={job.id} className={styles.card}>
             <h3>{job.titulo}</h3>
             <p>
-              <strong>{job.empresa}</strong> – {job.ubicacion}
+              <strong>Ubicación: </strong> {job.ubicacion}
             </p>
-            <p>{job.descripcion}</p>
+            <p><strong>Experiencia mínima: </strong> {job.experiencia} años.</p>
+                                    <p><strong>Límite para postular: </strong> {job.fecha_cierre}</p>
             <Link to={`/empleo/${job.id}`} state={{ data: job }}>
               <button className={styles.cardButton}>Ver oferta</button>
             </Link>

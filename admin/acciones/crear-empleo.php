@@ -16,6 +16,7 @@ if (!is_array($data)) {
 if (
     !isset($data['titulo']) ||
     !isset($data['descripcion']) ||
+    !isset($data['experiencia']) ||
     !isset($data['empresa']) ||
     !isset($data['ubicacion']) ||
     !isset($data['fecha_publicacion'])
@@ -32,6 +33,7 @@ $mysqli = obtenerConexion();
 $titulo            = $mysqli->real_escape_string($data['titulo']);
 $descripcion       = $mysqli->real_escape_string($data['descripcion']);
 $empresa           = $mysqli->real_escape_string($data['empresa']);
+$experiencia         = $mysqli->real_escape_string($data['experiencia']);
 $ubicacion         = $mysqli->real_escape_string($data['ubicacion']);
 $fecha_publicacion = $mysqli->real_escape_string($data['fecha_publicacion']);
 $fecha_cierre      = null;
@@ -41,12 +43,12 @@ if (!empty($data['fecha_cierre'])) {
 
 $sql = "
   INSERT INTO empleos
-    (titulo, descripcion, empresa, ubicacion, fecha_publicacion, fecha_cierre)
+    (titulo, descripcion, empresa, ubicacion, experiencia, fecha_publicacion, fecha_cierre)
   VALUES
-    (?, ?, ?, ?, ?, ?)
+    (?, ?, ?, ?, ?, ?, ?)
 ";
 $stmt = $mysqli->prepare($sql);
-$stmt->bind_param('ssssss', $titulo, $descripcion, $empresa, $ubicacion, $fecha_publicacion, $fecha_cierre);
+$stmt->bind_param('ssssss', $titulo, $descripcion, $empresa, $experiencia, $ubicacion, $fecha_publicacion, $fecha_cierre);
 
 if ($stmt->execute()) {
     http_response_code(201);

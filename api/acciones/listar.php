@@ -10,7 +10,7 @@ if (!isset($mysqli)) {
 
 $query  = "
   SELECT 
-    id, titulo, descripcion, empresa, ubicacion, fecha_publicacion, fecha_cierre
+    id, titulo, descripcion, empresa, ubicacion, experiencia, fecha_publicacion, fecha_cierre
   FROM empleos
   ORDER BY fecha_publicacion DESC
 ";

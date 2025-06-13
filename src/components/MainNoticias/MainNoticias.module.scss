@@ -94,6 +94,10 @@
   background-color: var(--background-tertiary);
   overflow: hidden;
   position: relative;
+
+  @include respond-up(md){
+    margin: 0 auto 2rem;
+  }
 }
 
 .inner {

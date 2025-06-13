@@ -10,7 +10,8 @@ $mysqli = obtenerConexion();
 $query = "
     SELECT 
       id, 
-      titulo, 
+      titulo,
+      experiencia, 
       empresa, 
       ubicacion, 
       fecha_publicacion, 
