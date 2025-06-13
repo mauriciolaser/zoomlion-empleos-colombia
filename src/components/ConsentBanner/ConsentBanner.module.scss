@@ -1,0 +1,35 @@
+/* src/components/ConsentBanner/ConsentBanner.module.scss */
+.banner {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #333;
+  color: #fff;
+  padding: 12px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.message {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.btn {
+  margin-left: 12px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  background: #f1c40f;
+  color: #333;
+  font-weight: bold;
+  @include respond-down(md){
+    margin-top: 1rem;
+  }
+}
+
+.link {
+  margin-left: 6px;
+  text-decoration: underline;
+  color: #f1c40f;
+}
