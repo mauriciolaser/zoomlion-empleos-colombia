@@ -7,7 +7,8 @@ import HomeHero from '../../components/HomeHero/HomeHero'
 import GeneralContacto from '../../components/GeneralContacto/GeneralContacto'
 import HomeTestimonials from '../../components/HomeTestimonials/HomeTestimonials'
 import HomeListings from '../../components/HomeListings/HomeListings'
-
+import HomePorQue from '../../components/HomePorQue/HomePorQue'
+import MainNoticias from '../../components/MainNoticias/MainNoticias'
 
 import styles from './Home.module.scss';
 
@@ -28,8 +29,9 @@ const Home = () => {
       <div className={styles.container}>
 
 <HomeListings empleos={empleos} />
+        <HomePorQue />
         <HomeTestimonials />
-
+        <MainNoticias />
 
         <GeneralContacto />
       </div>

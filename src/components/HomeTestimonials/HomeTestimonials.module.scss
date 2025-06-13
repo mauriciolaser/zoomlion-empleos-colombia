@@ -1,47 +1,126 @@
-/* Estilos para HomeTestimonials */
-
-/* Título principal de la sección, centrado con margen inferior */
-.heading {
-  text-align: center;
-  margin-bottom: 1rem; /* Ajusta el espacio según convenga */
-  font-size: 2rem;     /* Puedes modificar el tamaño si lo deseas */
-  text-transform: capitalize; /* Para que quede con mayúscula inicial */
+.homeTestimonials {
+  /* Ajusta padding o fondo si lo necesitas */
 }
 
-/* Contenedor principal */
 .container {
-  display: flex;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  height: 400px; /* Altura fija para controlar diseño */
-  gap: 1rem;
-  padding: 1rem;
-  box-sizing: border-box;
-  position: relative;
 }
 
-/* Wrapper para el main card (para centrar/manejar layoutId) */
-.mainWrapper {
-  flex: 1 1 50%;
-  position: relative;
+/* Título con líneas decorativas */
+.sectionTitleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1em 0 1.5rem;
+
+  @include respond-up(md) {
+    margin: 2rem auto;
+  }
 }
 
-/* Card principal ocupa 50% del ancho */
-.mainCard {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
+.lineLeft,
+.lineRight {
+  display: none;
+
+  @include respond-up(md) {
+    display: block;
+    flex: 1;
+    height: 1px;
+    background: green;
+    position: relative;
+  }
+}
+
+.lineLeft {
+  @include respond-up(md) {
+    margin-right: 2rem;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1em;
+      height: 1em;
+      background: green;
+      border-radius: 50%;
+    }
+  }
+}
+
+.lineRight {
+  @include respond-up(md) {
+    margin-left: 2rem;
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1em;
+      height: 1em;
+      background: green;
+      border-radius: 50%;
+    }
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+  color: black;
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  font-weight: bold;
+
+  @include respond-down(md) {
+    &:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 2px;
+      margin-top: 0.5rem;
+      background: linear-gradient(to right, green 20%, black 20%);
+    }
+  }
+
+  @include respond-up(md) {
+    font-size: var(--desktop-title);
+    margin: 1rem auto;
+    line-height: 1;
+  }
+}
+
+/* Wrapper de los dos items */
+.itemsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+
+  @include respond-up(md) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 3rem;
+  }
+}
+
+/* Cada card con fondo e overlay de texto */
+.item {
+  position: relative;
+  flex: 1;
+  height: 300px;
   border-radius: 8px;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
 }
 
-/* Overlay oscuro semitransparente para el main card */
-.overlay {
+/* Capa semitransparente para el texto */
+.textOverlay {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -51,80 +130,14 @@
   box-sizing: border-box;
 }
 
-.title {
+.textTitle {
   color: #fff;
   margin: 0 0 0.5rem 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
-.body {
+.textBody {
   color: #f0f0f0;
   font-size: 1rem;
-}
-
-/* Contenedor de las cards secundarias a la derecha en fila */
-.sideCards {
-  flex: 1 1 50%;
-  display: flex;
-  flex-direction: row; /* En fila */
-  gap: 1rem;
-}
-
-/* Cada card secundaria ocupa la mitad del ancho del lado derecho y toda la altura */
-.sideCard {
-  position: relative;
-  flex: 1 1 50%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-/* Overlay oscuro para cards secundarias */
-.sideOverlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  padding: 0.5rem;
-  box-sizing: border-box;
-}
-
-.sideTitle {
-  color: #fff;
   margin: 0;
-  font-size: 1.2rem;
-  text-align: center;
-      display: none;
-}
-
-/* ----------------------------------------------------
-   Media query para pantallas móviles (hasta 768px)
-   ---------------------------------------------------- */
-@include respond-down (md) {
-  /* Ocultamos las tarjetas secundarias */
-  .sideCards {
-    display: none;
-  }
-
-  /* Hacemos que el mainWrapper ocupe todo el ancho disponible */
-  .mainWrapper {
-    flex: 1 1 100%;
-    /* Si quieres ajustar altura en móvil, puedes cambiar este valor */
-    height: 300px;
-  }
-
-  /* Ajuste opcional al container, para adaptarse en columna */
-  .container {
-    /* Si quieres que el contenedor se autoajuste en altura:
-       height: auto; */
-  }
-
-  /* Aseguramos que el mainCard ocupe todo el espacio del mainWrapper */
-  .mainCard {
-    width: 100%;
-    height: 100%;
-  }
 }

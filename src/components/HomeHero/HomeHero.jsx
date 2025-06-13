@@ -6,9 +6,9 @@ const HomeHero = ({ scrollToContact, onOpenCotizador }) => {
     <section className={styles.heroContainer}>
       {/* Columna izquierda: texto y botones */}
       <div className={styles.left}>
-        <h2 className={styles.title}>TE ESTAMOS BUSCANDO</h2>
+        <h2 className={styles.title}>TE ESTAMOS<br></br>BUSCANDO</h2>
         <p className={styles.subtitle}>
-          Trae tu talento al mejor equipo de profesionales en Perú y el mundo.
+          Trae tu talento al mejor equipo<br></br>de profesionales en Perú y el mundo.
         </p>
         <div className={styles.actions}>
           <button

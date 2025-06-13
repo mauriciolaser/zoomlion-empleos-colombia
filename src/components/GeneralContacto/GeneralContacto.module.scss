@@ -10,8 +10,10 @@ $hover-scale: 1.05;
   overflow: hidden;
   padding: 0em;
 
+
   @include respond-up(md){
     padding: 2em;
+      min-height: 60vh;
   }
 }
 

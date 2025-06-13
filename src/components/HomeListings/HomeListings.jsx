@@ -5,7 +5,11 @@ import styles from './HomeListings.module.scss';
 const HomeListings = ({ empleos }) => {
   return (
     <section className={styles.listingsSection}>
-      <h2>Ofertas de empleo</h2>
+        <div className={styles.sectionTitleWrapper}>
+          <div className={styles.lineLeft} />
+          <h2 className={styles.title}>OFERTAS DE EMPLEO</h2>
+          <div className={styles.lineRight} />
+        </div>
       <div className={styles.cardContainer}>
         {empleos.map((job) => (
           <div key={job.id} className={styles.card}>

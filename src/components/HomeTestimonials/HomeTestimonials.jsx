@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
+import React from 'react';
 import styles from './HomeTestimonials.module.scss';
 import data from '../../data/HomeTestimonials/testimonialsData.json';
 
@@ -25,78 +24,41 @@ const imagesMap = {
 };
 
 const HomeTestimonials = () => {
-  // Resolver rutas de imagen
-  const testimonials = data.map((item) => ({
+  const testimonials = data.map(item => ({
     ...item,
     image: imagesMap[item.image],
   }));
 
-  const total = testimonials.length;
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % total);
-    }, 5000); // 5 segundos de intervalo
-
-    return () => clearInterval(interval);
-  }, [total]);
-
-  // Índices de los dos siguientes testimonios “pendientes”
-  const nextIndex1 = (activeIndex + 1) % total;
-  const nextIndex2 = (activeIndex + 2) % total;
+  // Solo los dos primeros testimonios
+  const visibles = testimonials.slice(0, 2);
 
   return (
-    <LayoutGroup>
-      {/* Título centrado */}
-      <h2 className={styles.heading}>Testimonios</h2>
+    <section className={styles.homeTestimonials}>
+      <div className={styles.container}>
+        {/* Título con líneas */}
+        <div className={styles.sectionTitleWrapper}>
+          <div className={styles.lineLeft}></div>
+          <h2 className={styles.title}>TESTIMONIOS</h2>
+          <div className={styles.lineRight}></div>
+        </div>
 
-      <section className={styles.container}>
-        {/* Main card animada con AnimatePresence */}
-        <div className={styles.mainWrapper}>
-          <AnimatePresence exitBeforeEnter>
-            <motion.div
-              key={testimonials[activeIndex].id}
-              className={styles.mainCard}
-              layoutId={`card-${testimonials[activeIndex].id}`}
-              initial={{ x: 200, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -200, opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              style={{ backgroundImage: `url(${testimonials[activeIndex].image})` }}
+        {/* Dos cards 50/50 con texto dentro */}
+        <div className={styles.itemsWrapper}>
+          {visibles.map(item => (
+            <div
+              key={item.id}
+              className={styles.item}
+              style={{ backgroundImage: `url(${item.image})` }}
             >
-              <div className={styles.overlay}>
-                <h2 className={styles.title}>{testimonials[activeIndex].title}</h2>
-                <p className={styles.body}>{testimonials[activeIndex].body}</p>
+              <div className={styles.textOverlay}>
+                <h3 className={styles.textTitle}>{item.title}</h3>
+                <p className={styles.textBody}>{item.body}</p>
               </div>
-            </motion.div>
-          </AnimatePresence>
+            </div>
+          ))}
         </div>
-
-        {/* Side cards: dos en fila, animadas con Framer Motion */}
-        <div className={styles.sideCards}>
-          {[nextIndex1, nextIndex2].map((idx) => {
-            const item = testimonials[idx];
-            return (
-              <motion.div
-                key={item.id}
-                className={styles.sideCard}
-                layoutId={`card-${item.id}`}
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ duration: 0.8 }}
-                style={{ backgroundImage: `url(${item.image})` }}
-              >
-                <div className={styles.sideOverlay}>
-                  <h3 className={styles.sideTitle}>{item.title}</h3>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </section>
-    </LayoutGroup>
+      </div>
+    </section>
   );
 };
 

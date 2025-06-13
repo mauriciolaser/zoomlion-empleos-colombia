@@ -11,7 +11,7 @@
 
   @include respond-up(md) {
     flex-direction: row;
-    height: 60vh;
+    height: 80vh;
   }
 
   .left {
@@ -25,17 +25,19 @@
     @include respond-up(md) {
       align-items: flex-start;
       text-align: left;
-      padding: 4rem;
+      padding-left: 10rem;
     }
 
     .title {
       font-size: 2.5rem;
+      font-weight: 900;
       margin-bottom: 1rem;
       color: var(--color-primary);
 
       @include respond-up(md) {
-        font-size: 3.5rem;
-        line-height: 0;
+        font-size: 4rem;
+        line-height: 1;
+        margin-bottom: 0rem;
       }
     }
 
@@ -43,11 +45,12 @@
       font-size: 1.5rem;
       margin-bottom: 2rem;
       color: white;
-
+      line-height: 1;
 
       @include respond-up(md) {
-        font-size: 1.5rem;
+        font-size: 2rem;
         margin-bottom: 2.5rem;
+        font-weight: 300;
       }
     }
 
