@@ -122,8 +122,12 @@
     justify-content: space-between;
     text-align: left;
 
+    @include respond-down(md){
+      min-width: 300px;
+    }
+
     h3 {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       margin-bottom: 0.5rem;
       color: #333333;
 
@@ -134,7 +138,7 @@
 
     p {
       margin-bottom: 0.15rem;
-      font-size: 0.95rem;
+      font-size: 1rem;
       line-height: 1;
       color: #555555;
 

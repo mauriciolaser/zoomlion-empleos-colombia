@@ -9,11 +9,9 @@ $hover-scale: 1.05;
   background-position: center;
   overflow: hidden;
   padding: 0em;
-
-  /* Nuevo: centrar wrapper */
   display: flex;
-  align-items: center;   // centra verticalmente
-  justify-content: center; // centra horizontalmente
+  align-items: center; 
+  justify-content: center;
 
   @include respond-up(md) {
     padding: 2em;
@@ -30,6 +28,9 @@ $hover-scale: 1.05;
   align-items: flex-start;
   justify-content: center;
 
+  @include respond-up(md){
+    width: 100%;
+  }
 
 }
 
@@ -44,11 +45,16 @@ $hover-scale: 1.05;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 1.5rem;
-  width: 100%;
+  padding: 1rem;
+  width: 80%;
   margin: 0;
   text-align: left;
   min-width: 0;
+
+  @include respond-up(md){
+    padding: 1.5rem;
+    width: 100%;
+  }
 
   > * {
     max-width: 540px;
