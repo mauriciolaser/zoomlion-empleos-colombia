@@ -1,0 +1,57 @@
+/*  tamaños base */
+$min-w: 600px;
+$min-h: 900px;
+
+/*  contenedor principal  */
+.container {
+  width: 100%;
+  min-width: $min-w;
+  min-height: $min-h;
+  padding: var(--padding-base);
+  position: relative;
+  text-align: left;
+}
+
+/*  estado loading  */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 6px solid rgba(0,0,0,.1);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/*  tipografías y espaciados  */
+.header          { margin-bottom: var(--margin-base); }
+.titulo          { font-size: var(--desktop-h3); margin: 0 0 .5rem 0; }
+.empresaUbicacion{ font-weight: 500; margin-bottom: .25rem; }
+.meta            { font-size: .9rem; color: var(--text-muted); margin: .25rem 0; }
+
+.section         { margin-top: 1.5rem; }
+.subtitle        { font-size: 2rem; margin-bottom: .75rem; }
+.text            { line-height: 1.5; font-size: 1.2rem; }
+
+.list            { list-style: disc inside; }
+.listItem        { margin-bottom: .5rem; font-size: 1.2rem; }
+
+.list {
+  list-style-type: disc;     /* viñetas clásicas */
+  padding-left: 1.25rem;     /* pequeña sangría a la izquierda */
+  margin: 0;                 /* elimina margen extra si lo hubiese */
+}
+
+.listItem {
+  display: list-item;        /* fuerza el render vertical */
+  margin-bottom: .5rem;      /* espacio entre ítems */
+}

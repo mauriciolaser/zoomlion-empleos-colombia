@@ -1,45 +1,42 @@
-// Archivo: src/pages/Empleo.jsx
-import React, { useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import EmpleoDescripción from '../../components/EmpleoDescripción/EmpleoDescripción';
-import EmpleoFormulario from '../../components/EmpleoFormulario/EmpleoFormulario';
-import styles from './Empleo.module.scss';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+
+import EmpleoHero        from '../../components/EmpleoHero/EmpleoHero';
+import EmpleoDescripcion from '../../components/EmpleoDescripcion/EmpleoDescripcion';
+import EmpleoFormulario  from '../../components/EmpleoFormulario/EmpleoFormulario';
+
+import useEmpleo         from '../../hooks/useEmpleo';
+import styles            from './Empleo.module.scss';
 
 const Empleo = () => {
-  const location = useLocation();
   const { slug } = useParams();
-  const stateData = location.state?.data || null;
+  const { empleo, loading, error } = useEmpleo(slug);
 
-  const [empleoData, setEmpleoData] = useState(stateData);
+  console.log('[Empleo.jsx] slug  ➜', slug);
+  console.log('[Empleo.jsx] empleo desde hook ➜', empleo);
 
-  useEffect(() => {
-    if (!empleoData) {
-      // Si se accede directamente por URL (sin pasar state), aquí podrías hacer un fetch:
-      // fetch(`http://localhost/api/empleos.php?id=${slug}`)
-      //   .then(res => res.json())
-      //   .then(data => setEmpleoData(data[0]));
-      // (Asumiendo que tu PHP admita recibir ?id= y devuelva un array con un solo objeto)
-    }
-  }, [empleoData, slug]);
-
-  if (!empleoData) {
-    return <div className={styles.loadingText}>Cargando...</div>;
-  }
+  if (loading) return <p className={styles.loadingText}>Cargando…</p>;
+  if (error)   return <p className={styles.errorText}>⚠️ {error}</p>;
+  if (!empleo) return null;
 
   return (
-    <div className={styles.empleoContainer}>
-      <div className={styles.descripcion}>
-        <EmpleoDescripción
-          posicion={empleoData.titulo}
-          ciudad={empleoData.ubicacion}
-          fechaLimite={empleoData.fecha_cierre}
-          requisitos={empleoData.descripcion}
-        />
+    <>
+      {/* 100 vw — no está dentro del contenedor limitado */}
+      <section className={styles.heroSection}>
+        <EmpleoHero {...empleo} />
+      </section>
+
+      {/* Contenido limitado a máx. 1200 px */}
+      <div className={styles.empleoContainer}>
+        <div className={styles.descripcion}>
+          <EmpleoDescripcion empleoData={empleo} />
+        </div>
+
+        <div className={styles.formulario}>
+          <EmpleoFormulario empleoId={empleo.id} />
+        </div>
       </div>
-      <div className={styles.formulario}>
-        <EmpleoFormulario />
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -1,7 +1,9 @@
 /* src/components/HomeTestimonials/HomeTestimonials.module.scss */
 
 .homeTestimonials {
-  /* Ajusta padding o fondo si lo necesitas */
+@include respond-up(md){
+  margin-bottom: 2rem;
+}
 }
 
 .container {

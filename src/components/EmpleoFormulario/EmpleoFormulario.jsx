@@ -112,7 +112,7 @@ const EmpleoFormulario = () => {
       </div>
 
       <button type="submit" className={styles.submitButton}>
-        Enviar
+        ENVIAR
       </button>
     </form>
   );

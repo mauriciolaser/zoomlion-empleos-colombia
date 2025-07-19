@@ -1,3 +1,4 @@
+// src/hooks/useEmpleos.jsx
 import { useState, useEffect } from 'react';
 
 const useEmpleos = () => {
@@ -6,26 +7,39 @@ const useEmpleos = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const baseUrl = import.meta.env.VITE_API_URL; //
-    fetch(`${baseUrl}/listar`, {
+    /* ───────── configuración ───────── */
+    const controller = new AbortController();
+    const baseUrl    = import.meta.env.VITE_API_URL;      // p. ej. http://localhost/empleos/api
+    const url        = `${baseUrl}/listar.php`;           // ajusta si tu ruta es distinta
+
+    console.log('[useEmpleos] GET ➜', url);
+
+    fetch(url, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include'
+      signal: controller.signal
+      // ← Sin credentials: 'include' porque no necesitamos cookies aquí
     })
-      .then((res) => {
-        if (!res.ok) {
+      .then(res => {
+        if (!res.ok)
           throw new Error(`Error en la API: ${res.status} ${res.statusText}`);
-        }
         return res.json();
       })
-      .then((data) => {
+      .then(data => {
+        console.log('[useEmpleos] data  ➜', data);
         setEmpleos(data);
         setLoading(false);
       })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
+      .catch(err => {
+        if (err.name !== 'AbortError') {
+          console.error('[useEmpleos] error ➜', err);
+          setError(err.message);
+          setLoading(false);
+        }
       });
+
+    /* ───────── limpieza ───────── */
+    return () => controller.abort();
   }, []);
 
   return { empleos, loading, error };

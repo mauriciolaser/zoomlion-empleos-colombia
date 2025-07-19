@@ -1,20 +1,29 @@
-/* Archivo: src/pages/Empleo.module.scss */
+/* ─────────────  Hero a 100 vw  ───────────── */
+.heroSection {
+  width: 100vw;
+  background-image: url('../../assets/images/EmpleoHero/background-desktop.webp');
+  background-size: cover;
+  background-position: center;
+
+  @include respond-down(md) {
+    min-height: 240px;
+    background-image: url('../../assets/images/EmpleoHero/background-mobile.webp');
+  }
+
+  @include respond-up(md){
+    height: auto;
+  }
+}
 
 .empleoContainer {
   display: grid;
-  grid-template-columns: 2fr 1fr;
   gap: 2rem;
-  padding: 2rem;
+  grid-template-columns: repeat(2, 1fr);
 
   @include respond-down(md) {
     grid-template-columns: 1fr;
   }
-}
 
-.descripcion {
-  /* Opcional: estilos específicos para la sección de descripción */
-}
-
-.formulario {
-  /* Opcional: estilos específicos para la sección del formulario */
+  max-width: 1200px;
+  margin: 0 auto;
 }
