@@ -1,57 +1,71 @@
 // Archivo: src/components/EmpleoFormulario/EmpleoFormulario.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './EmpleoFormulario.module.scss';
+import useCrearPostulacion from '../../hooks/useCrearPostulacion';
 
-const EmpleoFormulario = () => {
-  const [nombre, setNombre] = useState('');
-  const [apellidos, setApellidos] = useState('');
-  const [dni, setDni] = useState('');
-  const [telefono, setTelefono] = useState('');
-  const [correo, setCorreo] = useState('');
-  const [curriculum, setCurriculum] = useState(null);
+const EmpleoFormulario = ({ usuarioId, empleoId }) => {
+  // Hook al inicio
+  const { crearPostulacion, loading, error } = useCrearPostulacion();
 
-  const handleSubmit = (e) => {
+  // Estados del formulario
+  const [nombre, setNombre]         = React.useState('');
+  const [apellidos, setApellidos]   = React.useState('');
+  const [dni, setDni]               = React.useState('');
+  const [telefono, setTelefono]     = React.useState('');
+  const [correo, setCorreo]         = React.useState('');
+  const [mensaje, setMensaje]       = React.useState('');
+  const [curriculum, setCurriculum] = React.useState(null);
+
+  // Estado para mostrar el mensaje de éxito
+  const [success, setSuccess]       = React.useState('');
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!curriculum) return;
 
-    // Creamos un FormData listo para enviar a una API
-    const formData = new FormData();
-    formData.append('nombre', nombre);
-    formData.append('apellidos', apellidos);
-    formData.append('dni', dni);
-    formData.append('telefono', telefono);
-    formData.append('correo', correo);
-    if (curriculum) {
-      formData.append('curriculum', curriculum);
+    // Limpiar cualquier mensaje previo
+    setSuccess('');
+
+    try {
+      const data = await crearPostulacion({
+        usuarioId,
+        empleoId,
+        nombre,
+        apellidos,
+        dni,
+        telefono,
+        correo,
+        mensaje,
+        archivo: curriculum
+      });
+
+      // Mostrar mensaje de éxito
+      setSuccess(data.message || 'Postulación registrada correctamente');
+
+      // Limpiar formulario
+      setCurriculum(null);
+      // Opcional: resetear los otros campos si quieres
+      // setNombre(''); setApellidos(''); etc.
+
+    } catch (err) {
+      // El hook ya actualiza `error`, no hace falta más aquí
+      console.error('Error al enviar postulación:', err);
     }
-
-    // TODO: Conectar con la API para enviar el formulario
-    // Ejemplo:
-    // fetch('/api/postular', {
-    //   method: 'POST',
-    //   body: formData,
-    // })
-    //   .then(res => res.json())
-    //   .then(respuesta => console.log(respuesta));
-
-    console.log('Formulario listo para enviar', {
-      nombre,
-      apellidos,
-      dni,
-      telefono,
-      correo,
-      curriculum,
-    });
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit} encType="multipart/form-data">
+    <form
+      className={styles.form}
+      onSubmit={handleSubmit}
+      encType="multipart/form-data"
+    >
       <div className={styles.field}>
         <label htmlFor="nombre">Nombre:</label>
         <input
           type="text"
           id="nombre"
           value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
+          onChange={e => setNombre(e.target.value)}
           required
         />
       </div>
@@ -62,7 +76,7 @@ const EmpleoFormulario = () => {
           type="text"
           id="apellidos"
           value={apellidos}
-          onChange={(e) => setApellidos(e.target.value)}
+          onChange={e => setApellidos(e.target.value)}
           required
         />
       </div>
@@ -73,7 +87,7 @@ const EmpleoFormulario = () => {
           type="text"
           id="dni"
           value={dni}
-          onChange={(e) => setDni(e.target.value)}
+          onChange={e => setDni(e.target.value)}
           required
         />
       </div>
@@ -84,7 +98,7 @@ const EmpleoFormulario = () => {
           type="tel"
           id="telefono"
           value={telefono}
-          onChange={(e) => setTelefono(e.target.value)}
+          onChange={e => setTelefono(e.target.value)}
           required
         />
       </div>
@@ -95,25 +109,49 @@ const EmpleoFormulario = () => {
           type="email"
           id="correo"
           value={correo}
-          onChange={(e) => setCorreo(e.target.value)}
+          onChange={e => setCorreo(e.target.value)}
           required
         />
       </div>
 
       <div className={styles.field}>
-        <label htmlFor="curriculum">Currículum:</label>
-        <input
-          type="file"
-          id="curriculum"
-          accept=".pdf, .doc, .docx"
-          onChange={(e) => setCurriculum(e.target.files[0])}
-          required
+        <label htmlFor="mensaje">Mensaje (opcional):</label>
+        <textarea
+          id="mensaje"
+          value={mensaje}
+          onChange={e => setMensaje(e.target.value)}
+          rows={3}
         />
       </div>
 
-      <button type="submit" className={styles.submitButton}>
-        ENVIAR
+     <div className={styles.field}>
+        <label htmlFor="curriculum">Currículum:</label>
+        <div className={styles.customFileInput}>
+          <label htmlFor="curriculum" className={styles.fileButton}>Elegir archivo</label>
+          <span className={styles.fileName}>
+            {curriculum ? curriculum.name : 'Ningún archivo elegido'}
+          </span>
+          {curriculum && (
+            <button type="button" className={styles.clearButton} onClick={() => setCurriculum(null)}>
+              ✕
+            </button>
+          )}
+          <input
+            type="file"
+            id="curriculum"
+            accept=".pdf,.doc,.docx"
+            onChange={e => setCurriculum(e.target.files[0])}
+            required
+          />
+        </div>
+      </div>
+
+      <button type="submit" className={styles.submitButton} disabled={loading}>
+        {loading ? 'Enviando…' : 'ENVIAR'}
       </button>
+
+      {error   && <p className={styles.error}>❌ {error.message}</p>}
+      {success && <p className={styles.success}>✅ {success}</p>}
     </form>
   );
 };

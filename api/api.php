@@ -30,16 +30,21 @@ if ($method === 'GET' && isset($query['id']) && !isset($query['postulacion'])) {
     exit;
 }
 
-/* ── 4 · crear empleo / postulación ─────────────── */
+/* ── 4 · crear postulación ─────────────── */
+
+if ($method === 'POST' && $path === 'api/crear_postulacion') {
+    require 'acciones/crear_postulacion.php';
+    exit;
+}
+
+/* ── 5 · crear empleo ─────────────── */
+
+
 if ($method === 'POST' && !isset($query['postulacion'])) {
     require 'acciones/crear_empleo.php';
     exit;
 }
-if ($method === 'POST' && isset($query['postulacion'])) {
-    $_GET['postulacion'] = 1;
-    require 'acciones/crear_postulacion.php';
-    exit;
-}
+
 
 /* ── 5 · fallback 404 ───────────────────────────── */
 http_response_code(404);
