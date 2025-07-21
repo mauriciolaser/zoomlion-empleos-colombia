@@ -6,7 +6,14 @@ export default function useCrearPostulacion() {
   const [error,   setError]   = useState(null);
 
   const crearPostulacion = async ({
-    procesoId, nombre, apellidos, dni, telefono, correo, mensaje, archivo
+    procesoId,
+    nombre,
+    apellidos,
+    dni,
+    telefono,
+    correo,
+    mensaje,
+    archivo
   }) => {
     setLoading(true);
     setError(null);
@@ -21,25 +28,36 @@ export default function useCrearPostulacion() {
     if (mensaje) fd.append('mensaje', mensaje);
     fd.append('archivo',      archivo);
 
-    console.log('▶️ formData', [...fd.entries()]);
+    console.log('[useCrearPostulacion] ▶️ formData', [...fd.entries()]);
 
     try {
-      const endpoint = `${import.meta.env.VITE_API_URL}/?action=crear-postulacion`;
-      const r = await fetch(endpoint, {
+      const endpoint = `${import.meta.env.VITE_API_URL}index.php?action=crear-postulacion`;
+      console.log('[useCrearPostulacion] POST', endpoint);
+
+      const res = await fetch(endpoint, {
         method: 'POST',
-        body: fd
+        body: fd,
+        // Si necesitas enviar cookies/sesión:
+        // credentials: 'include',
       });
 
-      console.log('⬅️ status', r.status);
-      const data = await r.json(); 
-      console.log('⬅️ json', data);
+      console.log('[useCrearPostulacion] ⬅️ status', res.status, res.statusText);
 
-      if (!r.ok || !data.ok) {
-        throw new Error(data.error || 'Error al enviar la postulación');
+      const data = await res.json();
+      console.log('[useCrearPostulacion] ⬅️ json', data);
+
+      if (!res.ok) {
+        // 400, 404, 500, etc.
+        throw new Error(data.error || `Error en la API: ${res.status}`);
       }
+      if (!data.ok) {
+        // respuesta JSON con ok: false
+        throw new Error(data.error || 'Error al crear la postulación');
+      }
+
       return data;
     } catch (e) {
-      console.error('❌ crearPostulacion', e);
+      console.error('[useCrearPostulacion] ❌', e);
       setError(e);
       throw e;
     } finally {

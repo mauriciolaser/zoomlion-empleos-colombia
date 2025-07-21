@@ -29,5 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // 3) Cabecera para JSON
 header('Content-Type: application/json; charset=utf-8');
 
+// ─── DEBUG: registrar método y acción ─────────────────────────
++error_log('DEBUG /api/index.php ▶️ Método: ' . $_SERVER['REQUEST_METHOD']);
++error_log('DEBUG /api/index.php ▶️ URI: ' . $_SERVER['REQUEST_URI']);
++error_log('DEBUG /api/index.php ▶️ $_GET["action"]: ' . ($_GET['action'] ?? '[no action]'));
+// ────────────────────────────────────────────────────────────────
+
 // 4) Despacho al router principal
 require_once __DIR__ . '/api.php';
