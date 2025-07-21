@@ -1,7 +1,7 @@
 <?php
-// ver_empleo.php — Detalle de empleo por slug
+// ver-proceso.php — Detalle de proceso por slug
 // ------------------------------------------------------------
-// Devuelve un empleo por su slug, normalizando los campos
+// Devuelve un proceso por su slug, normalizando los campos
 // responsabilidades y requisitos para que siempre lleguen
 // como array JSON al frontend.
 // ------------------------------------------------------------
@@ -51,7 +51,7 @@ $stmt = $mysqli->prepare("
         experiencia,
         responsabilidades,
         requisitos
-    FROM empleos
+    FROM procesos
     WHERE slug = ?
     LIMIT 1
 ");
@@ -60,36 +60,36 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 /* 5 · Normalización de datos -------------------------------*/
-if ($empleo = $result->fetch_assoc()) {
+if ($proceso = $result->fetch_assoc()) {
 
     foreach (['responsabilidades', 'requisitos'] as $campo) {
-        $raw = $empleo[$campo] ?? '';
+        $raw = $proceso[$campo] ?? '';
 
         // Caso 1: valor vacío → array vacío
         if ($raw === '' || $raw === null) {
-            $empleo[$campo] = [];
+            $proceso[$campo] = [];
             continue;
         }
 
         // Caso 2: intentar decodificar JSON
         $json = json_decode($raw, true);
         if (json_last_error() === JSON_ERROR_NONE && is_array($json)) {
-            $empleo[$campo] = $json;
+            $proceso[$campo] = $json;
             continue;
         }
 
         // Caso 3: no es JSON → dividir por saltos de línea o comas
-        $empleo[$campo] = array_values(
+        $proceso[$campo] = array_values(
             array_filter(
                 array_map('trim', preg_split('/[\r\n,]+/', $raw))
             )
         );
     }
 
-    echo json_encode($empleo, JSON_UNESCAPED_UNICODE);
+    echo json_encode($proceso, JSON_UNESCAPED_UNICODE);
 } else {
     http_response_code(404);
-    echo json_encode(['error' => 'Empleo no encontrado'], JSON_UNESCAPED_UNICODE);
+    echo json_encode(['error' => 'Proceso no encontrado'], JSON_UNESCAPED_UNICODE);
 }
 
 /* 6 · Limpieza ---------------------------------------------*/

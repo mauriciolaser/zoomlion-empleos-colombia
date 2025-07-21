@@ -1,18 +1,21 @@
-// Archivo: src/pages/Home.jsx
-
-import React from 'react';
-import { Link } from 'react-router-dom';
-import useEmpleos from '../../hooks/useEmpleos';
-import HomeHero from '../../components/HomeHero/HomeHero'
-import GeneralContacto from '../../components/GeneralContacto/GeneralContacto'
-import HomeTestimonials from '../../components/HomeTestimonials/HomeTestimonials'
-import HomeListings from '../../components/HomeListings/HomeListings'
-import HomePorQue from '../../components/HomePorQue/HomePorQue'
-
+import React, { useCallback } from 'react';
+import useProcesos from '../../hooks/useProcesos';
+import HomeHero from '../../components/HomeHero/HomeHero';
+import GeneralContacto from '../../components/GeneralContacto/GeneralContacto';
+import HomeTestimonials from '../../components/HomeTestimonials/HomeTestimonials';
+import HomeListings from '../../components/HomeListings/HomeListings';
+import HomePorQue from '../../components/HomePorQue/HomePorQue';
 import styles from './Home.module.scss';
 
 const Home = () => {
-  const { empleos, loading, error } = useEmpleos();
+  const { procesos, loading, error } = useProcesos();
+
+  const scrollToListings = useCallback(() => {
+    const target = document.getElementById('home-listings');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
 
   if (loading) {
     return <p className={styles.loadingText}>Cargando ofertas...</p>;
@@ -24,10 +27,9 @@ const Home = () => {
 
   return (
     <>
-      <HomeHero />
+      <HomeHero scrollToListings={scrollToListings} />
       <div className={styles.container}>
-
-<HomeListings empleos={empleos} />
+        <HomeListings procesos={procesos} />
         <HomePorQue />
         <HomeTestimonials />
         <GeneralContacto />
@@ -35,6 +37,5 @@ const Home = () => {
     </>
   );
 };
-
 
 export default Home;

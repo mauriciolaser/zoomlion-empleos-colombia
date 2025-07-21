@@ -1,52 +1,39 @@
 <?php
-// api/api.php
 require_once __DIR__ . '/config.php';
-$mysqli = obtenerConexion();
-
-$method    = $_SERVER['REQUEST_METHOD'];
+$mysqli = obtenerConexionMain();
+$method = $_SERVER['REQUEST_METHOD'];
+$action = $_GET['action'] ?? '';
+if ($method === 'GET' && $action === 'listar-procesos') {
+    require __DIR__ . '/acciones/listar-procesos.php';
+    exit;
+}
 $parsedUrl = parse_url($_SERVER['REQUEST_URI']);
-$path      = trim($parsedUrl['path'], '/');           // ej: api/ver_empleo
-$query     = [];
+$path = trim($parsedUrl['path'], '/');
+$query = [];
 if (!empty($parsedUrl['query'])) {
     parse_str($parsedUrl['query'], $query);
 }
-
-/* ── 1 · ver_empleo ─────────────────────────────── */
-if ($method === 'GET' && $path === 'api/ver_empleo') {
-    require 'acciones/ver_empleo.php';
+if ($method === 'GET' && $path === 'api/crear-postulacion') {
+    require __DIR__ . '/acciones/crear-postulacion.php';
     exit;
 }
-
-/* ── 2 · listar ─────────────────────────────────── */
-if ($method === 'GET' && $path === 'api/listar') {
-    require 'acciones/listar.php';
+if ($method === 'GET' && $path === 'api/listar-procesos') {
+    require __DIR__ . '/acciones/listar-procesos.php';
     exit;
 }
-
-/* ── 3 · detalle por id ─────────────────────────── */
 if ($method === 'GET' && isset($query['id']) && !isset($query['postulacion'])) {
     $_GET['id'] = $query['id'];
-    require 'acciones/detalle.php';
+    require __DIR__ . '/acciones/ver-proceso.php';
     exit;
 }
-
-/* ── 4 · crear postulación ─────────────── */
-
-if ($method === 'POST' && $path === 'api/crear_postulacion') {
-    require 'acciones/crear_postulacion.php';
+if ($method === 'POST' && $path === 'api/crear-postulacion') {
+    require __DIR__ . '/acciones/crear-postulacion.php';
     exit;
 }
-
-/* ── 5 · crear empleo ─────────────── */
-
-
 if ($method === 'POST' && !isset($query['postulacion'])) {
-    require 'acciones/crear_empleo.php';
+    require __DIR__ . '/acciones/crear_empleo.php';
     exit;
 }
-
-
-/* ── 5 · fallback 404 ───────────────────────────── */
 http_response_code(404);
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode(['error' => 'Ruta no encontrada o método no soportado'], JSON_UNESCAPED_UNICODE);

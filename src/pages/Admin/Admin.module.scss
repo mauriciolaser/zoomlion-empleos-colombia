@@ -1,6 +1,13 @@
 .container {
   padding: var(--padding-base);
-  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @include respond-up(md) {
+    min-height: 100vh;
+  }
 }
 
 .button {

@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './HomeHero.module.scss'
 
-const HomeHero = ({ scrollToContact, onOpenCotizador }) => {
+const HomeHero = ({ scrollToContact, scrollToListings }) => {
   return (
     <section className={styles.heroContainer}>
       {/* Columna izquierda: texto y botones */}
@@ -13,7 +13,7 @@ const HomeHero = ({ scrollToContact, onOpenCotizador }) => {
         <div className={styles.actions}>
           <button
             className={styles.ctaPrimary}
-            onClick={onOpenCotizador}
+            onClick={scrollToListings}
           >
             VER OFERTAS
           </button>

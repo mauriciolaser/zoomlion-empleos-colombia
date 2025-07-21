@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
-import styles from './EmpleoDescripcion.module.scss';
+import styles from './ProcesoDescripcion.module.scss';
 
-const EmpleoDescripcion = ({ empleoData }) => {
+const ProcesoDescripcion = ({ procesoData }) => {
   /* ───────── logs iniciales ───────── */
-  console.log('[EmpleoDescripcion] empleoData recibido ➜', empleoData);
+  console.log('[ProcesoDescripcion] procesoData recibido ➜', procesoData);
 
   /* -------- loading “esqueleto” -------- */
-  if (!empleoData) {
-    console.log('[EmpleoDescripcion] aún sin datos, mostrando spinner');
+  if (!procesoData) {
+    console.log('[ProcesoDescripcion] aún sin datos, mostrando spinner');
     return (
       <div className={`${styles.container} ${styles.loading}`}>
         <div className={styles.spinner} />
@@ -17,22 +17,21 @@ const EmpleoDescripcion = ({ empleoData }) => {
 
   /* -------- normalización -------- */
   const responsabilidades = useMemo(() => {
-    const raw = empleoData.responsabilidades;
-    console.log('[EmpleoDescripcion] responsabilidades raw ➜', raw);
+    const raw = procesoData.responsabilidades;
+    console.log('[ProcesoDescripcion] responsabilidades raw ➜', raw);
     if (!raw) return [];
     return Array.isArray(raw) ? raw : JSON.parse(raw);
-  }, [empleoData]);
+  }, [procesoData]);
 
   const requisitos = useMemo(() => {
-    const raw = empleoData.requisitos;
-    console.log('[EmpleoDescripcion] requisitos raw ➜', raw);
+    const raw = procesoData.requisitos;
+    console.log('[ProcesoDescripcion] requisitos raw ➜', raw);
     if (!raw) return [];
     return Array.isArray(raw) ? raw : JSON.parse(raw);
-  }, [empleoData]);
+  }, [procesoData]);
 
-  const { descripcion = '' } = empleoData;
+  const { descripcion = '' } = procesoData;
 
-  /* -------- render final -------- */
   return (
     <div className={styles.container}>
       {/* Descripción */}
@@ -43,7 +42,6 @@ const EmpleoDescripcion = ({ empleoData }) => {
         </div>
       )}
 
-      {/* Responsabilidades */}
       {responsabilidades.length > 0 && (
         <div className={styles.section}>
           <h3 className={styles.subtitle}>Responsabilidades</h3>
@@ -55,7 +53,6 @@ const EmpleoDescripcion = ({ empleoData }) => {
         </div>
       )}
 
-      {/* Requisitos */}
       {requisitos.length > 0 && (
         <div className={styles.section}>
           <h3 className={styles.subtitle}>Requisitos</h3>
@@ -70,4 +67,4 @@ const EmpleoDescripcion = ({ empleoData }) => {
   );
 };
 
-export default EmpleoDescripcion;
+export default ProcesoDescripcion;

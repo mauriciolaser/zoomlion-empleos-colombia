@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './EmpleoHero.module.scss';
+import styles from './ProcesoHero.module.scss';
 
 /**
  * Hero de la oferta de empleo.
@@ -10,7 +10,7 @@ import styles from './EmpleoHero.module.scss';
  * @param {number}  experiencia   – Años de experiencia mínima.
  * @param {string}  fecha_cierre  – Fecha ISO (YYYY-MM-DD) en que expira.
  */
-const EmpleoHero = ({ titulo, ubicacion, experiencia, fecha_cierre }) => {
+const ProcesoHero = ({ titulo, ubicacion, experiencia, fecha_cierre }) => {
   /* ─── Formateos ─── */
   const expLabel =
     experiencia === 0 || experiencia
@@ -52,4 +52,4 @@ const EmpleoHero = ({ titulo, ubicacion, experiencia, fecha_cierre }) => {
   );
 };
 
-export default EmpleoHero;
+export default ProcesoHero;

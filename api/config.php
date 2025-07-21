@@ -5,7 +5,7 @@ ini_set('error_log',__DIR__.'/logs/api_errors.log');
 error_reporting(E_ALL);
 
 /* autoload Composer */
-$autoload = __DIR__.'/vendor/autoload.php';
+$autoload = __DIR__ . '/../vendor/autoload.php';
 if (file_exists($autoload)) {
     require_once $autoload;
 } else {
@@ -45,7 +45,7 @@ define('DB_NAME', $dbName);
 define('UPLOADS_PATH', __DIR__.'/uploads/');
 define('UPLOADS_URL',  '/uploads/');
 
-function obtenerConexion() {
+function obtenerConexionMain() {
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     if ($mysqli->connect_errno) {
         error_log('API BD CONNECT ERROR: '.$mysqli->connect_error);

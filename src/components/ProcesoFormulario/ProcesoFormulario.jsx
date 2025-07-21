@@ -1,9 +1,9 @@
-// Archivo: src/components/EmpleoFormulario/EmpleoFormulario.jsx
+// Archivo: src/components/ProcesoFormulario/ProcesoFormulario.jsx
 import React from 'react';
-import styles from './EmpleoFormulario.module.scss';
+import styles from './ProcesoFormulario.module.scss';
 import useCrearPostulacion from '../../hooks/useCrearPostulacion';
 
-const EmpleoFormulario = ({ usuarioId, empleoId }) => {
+const ProcesoFormulario = ({ usuarioId, procesoId }) => {
   // Hook al inicio
   const { crearPostulacion, loading, error } = useCrearPostulacion();
 
@@ -28,8 +28,8 @@ const EmpleoFormulario = ({ usuarioId, empleoId }) => {
 
     try {
       const data = await crearPostulacion({
-        usuarioId,
-        empleoId,
+        postulanteId,
+        procesoId,
         nombre,
         apellidos,
         dni,
@@ -156,4 +156,4 @@ const EmpleoFormulario = ({ usuarioId, empleoId }) => {
   );
 };
 
-export default EmpleoFormulario;
+export default ProcesoFormulario;

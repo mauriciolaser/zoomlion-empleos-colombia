@@ -28,14 +28,14 @@ set_error_handler(function ($severity,$msg,$file,$line) {
 
 try {
     if (
-        !isset($_POST['empleo_id'], $_POST['nombre'], $_POST['apellidos'], $_POST['dni'],
+        !isset($_POST['proceso_id'], $_POST['nombre'], $_POST['apellidos'], $_POST['dni'],
                 $_POST['telefono'], $_POST['correo']) ||
         !isset($_FILES['archivo'])
     ) {
         throw new Exception('Campos requeridos faltantes', 400);
     }
 
-    $empleo_id = intval($_POST['empleo_id']);
+    $proceso_id = intval($_POST['proceso_id']);
     $nombre    = trim($_POST['nombre']);
     $apellidos = trim($_POST['apellidos']);
     $dni       = trim($_POST['dni']);
@@ -49,11 +49,11 @@ try {
     if (!defined('UPLOADS_PATH')) define('UPLOADS_PATH', __DIR__ . '/../uploads/');
     if (!defined('UPLOADS_URL'))  define('UPLOADS_URL', '/empleos/uploads/');
 
-    $u = $mysqli->prepare("INSERT INTO usuarios (nombre, apellidos, dni, telefono, correo) VALUES (?,?,?,?,?)");
+    $u = $mysqli->prepare("INSERT INTO postulantes (nombre, apellidos, dni, telefono, correo) VALUES (?,?,?,?,?)");
     if (!$u->execute([$nombre,$apellidos,$dni,$telefono,$correo])) {
-        throw new Exception('Insert usuario: '.$u->error, 500);
+        throw new Exception('Insert postulante: '.$u->error, 500);
     }
-    $usuario_id = $u->insert_id;
+    $postulante_id = $u->insert_id;
     $u->close();
 
     if (!is_dir(UPLOADS_PATH) && !mkdir(UPLOADS_PATH, 0755, true)) {
@@ -67,8 +67,8 @@ try {
     }
     $ruta     = UPLOADS_URL.$filename;
 
-    $p = $mysqli->prepare("INSERT INTO postulaciones (usuario_id, empleo_id, archivo, mensaje) VALUES (?,?,?,?)");
-    if (!$p->execute([$usuario_id,$empleo_id,$ruta,$mensaje])) {
+    $p = $mysqli->prepare("INSERT INTO postulaciones (postulante_id, proceso_id, archivo, mensaje) VALUES (?,?,?,?)");
+    if (!$p->execute([$postulante_id,$proceso_id,$ruta,$mensaje])) {
         throw new Exception('Insert postulación: '.$p->error, 500);
     }
 

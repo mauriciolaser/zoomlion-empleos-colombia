@@ -5,13 +5,13 @@ export default function useCrearPostulacion() {
   const [error,setError]     = useState(null);
 
   const crearPostulacion = async ({
-    empleoId,nombre,apellidos,dni,telefono,correo,mensaje,archivo
+    procesoId,nombre,apellidos,dni,telefono,correo,mensaje,archivo
   }) => {
     setLoading(true);
     setError(null);
 
     const fd = new FormData();
-    fd.append('empleo_id',empleoId);
+    fd.append('proceso_id',procesoId);
     fd.append('nombre',nombre);
     fd.append('apellidos',apellidos);
     fd.append('dni',dni);
@@ -23,7 +23,7 @@ export default function useCrearPostulacion() {
     console.log('▶️ formData', [...fd.entries()]);
 
     try {
-      const r  = await fetch(`${import.meta.env.VITE_API_URL}/crear_postulacion.php`,
+      const r  = await fetch(`${import.meta.env.VITE_API_URL}/crear-postulacion.php`,
         {method:'POST',body:fd});
       console.log('⬅️ status', r.status);
       const txt = await r.text();

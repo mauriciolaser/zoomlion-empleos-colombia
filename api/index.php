@@ -1,9 +1,9 @@
 <?php
 // 1) Configuración de logging (producción)
-ini_set('display_errors', 0);                             // No exponer errores al cliente
-ini_set('log_errors', 1);                                 // Activar log de errores
-ini_set('error_log', __DIR__ . '/logs/api_errors.log');   // Fichero de log
-error_reporting(E_ALL);                                   // Registrar todos los niveles
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/logs/api_errors.log');
+error_reporting(E_ALL);
 
 // 2) CORS / Preflight
 if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -29,8 +29,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // 3) Cabecera para JSON
 header('Content-Type: application/json; charset=utf-8');
 
-// 4) (Opcional) Registro de arranque para verificar que el log funciona
-trigger_error('API index.php cargado correctamente', E_USER_NOTICE);
-
-// 5) Despacho al router principal
+// 4) Despacho al router principal
 require_once __DIR__ . '/api.php';

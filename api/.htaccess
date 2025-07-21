@@ -1,9 +1,9 @@
-# Activar mod_rewrite
-RewriteEngine On
+DirectorySlash Off
 
-# Si el recurso solicitado NO es un archivo real…
+<IfModule mod_rewrite.c>
+RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
-# …y NO es un directorio real…
 RewriteCond %{REQUEST_FILENAME} !-d
-# …redirigir todo a index.php conservando query string
+RewriteRule ^$ index.php [L,QSA]
 RewriteRule ^.*$ index.php [L,QSA]
+</IfModule>
