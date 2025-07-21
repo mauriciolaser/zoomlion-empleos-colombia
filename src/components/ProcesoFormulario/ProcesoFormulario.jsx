@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './ProcesoFormulario.module.scss';
 import useCrearPostulacion from '../../hooks/useCrearPostulacion';
 
-const ProcesoFormulario = ({ usuarioId, procesoId }) => {
+const ProcesoFormulario = ({ postulanteId, procesoId }) => {
   // Hook al inicio
   const { crearPostulacion, loading, error } = useCrearPostulacion();
 

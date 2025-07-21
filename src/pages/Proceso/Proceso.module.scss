@@ -1,0 +1,29 @@
+/* ─────────────  Hero a 100 vw  ───────────── */
+.heroSection {
+  width: 100vw;
+  background-image: url('../../assets/images/ProcesoHero/background-desktop.webp');
+  background-size: cover;
+  background-position: center;
+
+  @include respond-down(md) {
+    min-height: 240px;
+    background-image: url('../../assets/images/ProcesoHero/background-mobile.webp');
+  }
+
+  @include respond-up(md){
+    height: auto;
+  }
+}
+
+.procesoContainer {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+
+  @include respond-down(md) {
+    grid-template-columns: 1fr;
+  }
+
+  max-width: 1200px;
+  margin: 0 auto;
+}

@@ -7,6 +7,12 @@ if ($method === 'GET' && $action === 'listar-procesos') {
     require __DIR__ . '/acciones/listar-procesos.php';
     exit;
 }
+
+if ($method === 'GET' && $action === 'ver-proceso' && isset($_GET['slug'])) {
+    require __DIR__ . '/acciones/ver-proceso.php';
+    exit;
+}
+
 $parsedUrl = parse_url($_SERVER['REQUEST_URI']);
 $path = trim($parsedUrl['path'], '/');
 $query = [];

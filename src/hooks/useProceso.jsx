@@ -28,8 +28,8 @@ const useProceso = (slug) => {
         console.log('[useProceso] respuesta HTTP ➜', res.status, res.statusText);
         if (!res.ok) {
           if (res.status === 404) {
-            console.error('[useProceso] Ruta o recurso no encontrado (404)');
-            throw new Error('Recurso no encontrado (404)');
+            console.error('[useProceso] Proceso no encontrado (404)');
+            throw new Error('Proceso no encontrado');
           } else {
             console.error('[useProceso] Error en la API ➜', res.status, res.statusText);
             throw new Error(`Error en la API: ${res.status} ${res.statusText}`);
@@ -49,13 +49,12 @@ const useProceso = (slug) => {
             }
           }
         });
-
         setProceso(data);
         setLoading(false);
       })
       .catch(err => {
         if (err.name === 'AbortError') return;
-        console.error('[useProceso] error ➜', err);
+        console.error('[useProceso] error ➜', err.message);
         setError(err.message);
         setLoading(false);
       });

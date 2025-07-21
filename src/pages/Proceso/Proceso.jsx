@@ -31,7 +31,7 @@ const Proceso = () => {
         </div>
 
         <div className={styles.formulario}>
-          <ProcesoForumulario procesoId={proceso.id} />
+          <ProcesoFormulario procesoId={proceso.id} />
         </div>
       </div>
     </>
