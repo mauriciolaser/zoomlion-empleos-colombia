@@ -29,55 +29,112 @@ set_error_handler(function ($severity,$msg,$file,$line) {
 try {
     if (
         !isset($_POST['proceso_id'], $_POST['nombre'], $_POST['apellidos'], $_POST['dni'],
-                $_POST['telefono'], $_POST['correo']) ||
+               $_POST['telefono'], $_POST['correo']) ||
         !isset($_FILES['archivo'])
     ) {
         throw new Exception('Campos requeridos faltantes', 400);
     }
 
     $proceso_id = intval($_POST['proceso_id']);
-    $nombre    = trim($_POST['nombre']);
-    $apellidos = trim($_POST['apellidos']);
-    $dni       = trim($_POST['dni']);
-    $telefono  = trim($_POST['telefono']);
-    $correo    = trim($_POST['correo']);
-    $mensaje   = isset($_POST['mensaje']) ? trim($_POST['mensaje']) : null;
+    $nombre     = trim($_POST['nombre']);
+    $apellidos  = trim($_POST['apellidos']);
+    $dni        = trim($_POST['dni']);
+    $telefono   = trim($_POST['telefono']);
+    $correo     = trim($_POST['correo']);
+    $mensaje    = isset($_POST['mensaje']) ? trim($_POST['mensaje']) : null;
 
-    require_once __DIR__ . '/../config.php';
-    $mysqli = obtenerConexion();
+    $mysqli = obtenerConexionMain();
+    $mysqli->begin_transaction();
 
-    if (!defined('UPLOADS_PATH')) define('UPLOADS_PATH', __DIR__ . '/../uploads/');
-    if (!defined('UPLOADS_URL'))  define('UPLOADS_URL', '/empleos/uploads/');
-
-    $u = $mysqli->prepare("INSERT INTO postulantes (nombre, apellidos, dni, telefono, correo) VALUES (?,?,?,?,?)");
-    if (!$u->execute([$nombre,$apellidos,$dni,$telefono,$correo])) {
-        throw new Exception('Insert postulante: '.$u->error, 500);
+    // Verificar que el proceso de selección existe
+    $stmt = $mysqli->prepare("SELECT 1 FROM procesos WHERE id = ?");
+    $stmt->bind_param("i", $proceso_id);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows === 0) {
+        throw new Exception('Proceso de selección no encontrado', 400);
     }
-    $postulante_id = $u->insert_id;
+    $stmt->close();
+
+    // 1) Insertar en postulantes
+    $u = $mysqli->prepare("
+        INSERT INTO postulantes (nombre, apellidos, dni, telefono, correo)
+        VALUES (?, ?, ?, ?, ?)
+    ");
+    $u->bind_param('sssss', $nombre, $apellidos, $dni, $telefono, $correo);
+    if (!$u->execute()) {
+        throw new Exception('Error al insertar postulante: '.$u->error, 500);
+    }
+    $postulante_id = $mysqli->insert_id;
     $u->close();
 
-    if (!is_dir(UPLOADS_PATH) && !mkdir(UPLOADS_PATH, 0755, true)) {
-        throw new Exception('No se pudo crear carpeta uploads', 500);
+    // 2) Subida de archivo con debug
+    if (!defined('UPLOADS_PATH')) {
+        // Apunta dos niveles arriba a /empleos/uploads
+        $rawPath = __DIR__ . '/../../uploads';
+        error_log("DEBUG: path bruto → " . $rawPath);
+        $resolved = realpath($rawPath);
+        error_log("DEBUG: realpath → " . var_export($resolved, true));
+        if (!$resolved) {
+            throw new Exception('Ruta de uploads no existe: ' . $rawPath, 500);
+        }
+        define('UPLOADS_PATH', rtrim($resolved, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
     }
-    $f        = $_FILES['archivo'];
-    $filename = time().'_'.basename($f['name']);
-    $destino  = UPLOADS_PATH.$filename;
-    if (!move_uploaded_file($f['tmp_name'],$destino)) {
+    if (!defined('UPLOADS_URL')) {
+        define('UPLOADS_URL', '/empleos/uploads/');
+    }
+    // Verificar existencia y permisos
+    if (!is_dir(UPLOADS_PATH) || !is_writable(UPLOADS_PATH)) {
+        throw new Exception('Uploads no existe o no es escribible: ' . UPLOADS_PATH, 500);
+    }
+
+    $f = $_FILES['archivo'];
+    if ($f['error'] !== UPLOAD_ERR_OK) {
+        error_log("DEBUG: upload error code → " . $f['error']);
+        throw new Exception('Error en la carga: código ' . $f['error'], 500);
+    }
+    if (!file_exists($f['tmp_name'])) {
+        error_log("DEBUG: tmp file no existe → " . $f['tmp_name']);
+        throw new Exception('Archivo temporal no encontrado', 500);
+    }
+
+    $filename = time() . '_' . basename($f['name']);
+    $destino  = UPLOADS_PATH . $filename;
+    error_log("DEBUG: moviendo " . $f['tmp_name'] . " → " . $destino);
+    if (!move_uploaded_file($f['tmp_name'], $destino)) {
+        error_log("DEBUG: fallo move_uploaded_file");
         throw new Exception('Error al subir archivo', 500);
     }
-    $ruta     = UPLOADS_URL.$filename;
+    $ruta = UPLOADS_URL . $filename;
 
-    $p = $mysqli->prepare("INSERT INTO postulaciones (postulante_id, proceso_id, archivo, mensaje) VALUES (?,?,?,?)");
-    if (!$p->execute([$postulante_id,$proceso_id,$ruta,$mensaje])) {
-        throw new Exception('Insert postulación: '.$p->error, 500);
+    // 3) Insertar en postulaciones
+    $p = $mysqli->prepare("
+        INSERT INTO postulaciones (postulante_id, proceso_id, archivo, mensaje)
+        VALUES (?, ?, ?, ?)
+    ");
+    $p->bind_param('iiss', $postulante_id, $proceso_id, $ruta, $mensaje);
+    if (!$p->execute()) {
+        throw new Exception('Error al insertar postulación: '.$p->error, 500);
     }
-
-    http_response_code(201);
-    echo json_encode(['ok'=>true,'id'=>$p->insert_id,'archivo'=>$ruta], JSON_UNESCAPED_UNICODE);
+    $postulacion_id = $mysqli->insert_id;
     $p->close();
+
+    // 4) Commit y respuesta
+    $mysqli->commit();
+    http_response_code(201);
+    echo json_encode([
+        'ok'              => true,
+        'postulante_id'   => $postulante_id,
+        'postulacion_id'  => $postulacion_id,
+        'archivo'         => $ruta
+    ], JSON_UNESCAPED_UNICODE);
     exit;
 
 } catch (Exception $e) {
+    // Rollback en caso de fallo
+    if (isset($mysqli) && $mysqli->errno === 0) {
+        $mysqli->rollback();
+    }
     error_log('crear_postulacion: '.$e->getMessage());
     http_response_code($e->getCode() ?: 500);
     echo json_encode(['ok'=>false,'error'=>$e->getMessage()], JSON_UNESCAPED_UNICODE);

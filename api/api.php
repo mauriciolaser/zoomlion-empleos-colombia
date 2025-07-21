@@ -13,6 +13,11 @@ if ($method === 'GET' && $action === 'ver-proceso' && isset($_GET['slug'])) {
     exit;
 }
 
+if ($method === 'POST' && $action === 'crear-postulacion') {
+    require __DIR__ . '/acciones/crear-postulacion.php';
+    exit;
+}
+
 $parsedUrl = parse_url($_SERVER['REQUEST_URI']);
 $path = trim($parsedUrl['path'], '/');
 $query = [];
