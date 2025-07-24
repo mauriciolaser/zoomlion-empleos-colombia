@@ -90,6 +90,59 @@
       }
     }
   }
+
+  // ===== ESTILOS PARA ESTADO VACÍO =====
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    background-color: #ffffff;
+    border: 2px dashed var(--border-tertiary);
+    border-radius: 1rem;
+    margin: 2rem 0;
+
+    @include respond-up(md) {
+      padding: 4rem 2rem;
+    }
+  }
+
+  .emptyIcon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+
+    @include respond-up(md) {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .emptyTitle {
+    font-size: var(--mobile-title);
+    color: var(--color-secondary);
+    margin-bottom: 1rem;
+    font-weight: bold;
+
+    @include respond-up(md) {
+      font-size: var(--desktop-subtitle);
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .emptyMessage {
+    font-size: var(--mobile-text);
+    color: var(--color-tertiary);
+    max-width: 500px;
+    line-height: 1.5;
+    margin: 0;
+
+    @include respond-up(md) {
+      font-size: 1.1rem;
+    }
+  }
 }
 
 .sectionTitleWrapper {
@@ -176,5 +229,3 @@
     margin: 1rem auto;
   }
 }
-
-
