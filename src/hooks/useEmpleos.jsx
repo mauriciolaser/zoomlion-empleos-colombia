@@ -10,7 +10,7 @@ const useEmpleos = () => {
     /* ───────── configuración ───────── */
     const controller = new AbortController();
     const baseUrl    = import.meta.env.VITE_API_URL;      // p. ej. http://localhost/empleos/api
-    const url        = `${baseUrl}/listar.php`;           // ajusta si tu ruta es distinta
+    const url        = `${baseUrl}/index.php?action=listar-procesos`;           // Comilla simple eliminada
 
     console.log('[useEmpleos] GET ➜', url);
 
