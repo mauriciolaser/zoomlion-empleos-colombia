@@ -31,7 +31,6 @@ const Home = () => {
       <div className={styles.container}>
         <HomeListings procesos={procesos} />
         <HomePorQue />
-        <HomeTestimonials />
         <GeneralContacto />
       </div>
     </>
