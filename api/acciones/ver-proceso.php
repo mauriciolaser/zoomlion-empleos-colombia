@@ -19,15 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 /* 1 · Cabecera JSON ----------------------------------------*/
 header('Content-Type: application/json; charset=utf-8');
 
-/* 2 · Conexión MySQL ---------------------------------------*/
-$mysqli = new mysqli('localhost', 'root', '', 'zlcpanel_empleos_db');
-if ($mysqli->connect_errno) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Error de conexión: ' . $mysqli->connect_error], JSON_UNESCAPED_UNICODE);
-    exit;
-}
+/* 2 · Cargar configuración ---------------------------------*/
+require_once __DIR__ . '/../config.php';
 
-/* 3 · Validar método y parámetro ---------------------------*/
+/* 3 · Conexión MySQL ---------------------------------------*/
+$mysqli = obtenerConexionMain();
+
+/* 4 · Validar método y parámetro ---------------------------*/
 if ($_SERVER['REQUEST_METHOD'] !== 'GET' || !isset($_GET['slug'])) {
     http_response_code(400);
     echo json_encode(['error' => 'Se requiere parámetro slug'], JSON_UNESCAPED_UNICODE);
@@ -36,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET' || !isset($_GET['slug'])) {
 
 $slug = $mysqli->real_escape_string($_GET['slug']);
 
-/* 4 · Consulta ---------------------------------------------*/
+/* 5 · Consulta ---------------------------------------------*/
 $stmt = $mysqli->prepare("
     SELECT
         id,
@@ -59,7 +57,7 @@ $stmt->bind_param('s', $slug);
 $stmt->execute();
 $result = $stmt->get_result();
 
-/* 5 · Normalización de datos -------------------------------*/
+/* 6 · Normalización de datos -------------------------------*/
 if ($proceso = $result->fetch_assoc()) {
 
     foreach (['responsabilidades', 'requisitos'] as $campo) {
@@ -92,7 +90,7 @@ if ($proceso = $result->fetch_assoc()) {
     echo json_encode(['error' => 'Proceso no encontrado'], JSON_UNESCAPED_UNICODE);
 }
 
-/* 6 · Limpieza ---------------------------------------------*/
+/* 7 · Limpieza ---------------------------------------------*/
 $stmt->close();
 $mysqli->close();
 ?>

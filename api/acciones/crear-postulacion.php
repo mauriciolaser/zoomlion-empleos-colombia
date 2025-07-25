@@ -16,6 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 header('Content-Type: application/json; charset=utf-8');
 
+// Cargar configuración
+require_once __DIR__ . '/../config.php';
+
 // Captura errores fatales
 register_shutdown_function(function () {
     $e = error_get_last();
@@ -82,17 +85,6 @@ try {
     $ins->close();
 
     // 2) Preparar ruta de uploads
-    if (!defined('UPLOADS_PATH')) {
-        $rawPath  = __DIR__ . '/../../uploads';
-        $resolved = realpath($rawPath);
-        if (!$resolved) {
-            throw new Exception('Ruta de uploads no existe: ' . $rawPath, 500);
-        }
-        define('UPLOADS_PATH', rtrim($resolved, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
-    }
-    if (!defined('UPLOADS_URL')) {
-        define('UPLOADS_URL', '/empleos/uploads/');
-    }
     if (!is_dir(UPLOADS_PATH) || !is_writable(UPLOADS_PATH)) {
         throw new Exception('Uploads no existe o no es escribible: ' . UPLOADS_PATH, 500);
     }
