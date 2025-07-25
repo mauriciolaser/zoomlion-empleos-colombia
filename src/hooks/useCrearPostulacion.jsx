@@ -31,7 +31,8 @@ export default function useCrearPostulacion() {
     console.log('[useCrearPostulacion] ▶️ formData', [...fd.entries()]);
 
     try {
-      const endpoint = `${import.meta.env.VITE_API_URL}/?action=crear-postulacion`;
+      // URL correcta usando VITE_API_URL que ya incluye la barra final
+      const endpoint = `${import.meta.env.VITE_API_URL}?action=crear-postulacion`;
       console.log('[useCrearPostulacion] POST', endpoint);
 
       const res = await fetch(endpoint, {
