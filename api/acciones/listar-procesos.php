@@ -38,6 +38,8 @@ $sql = "
         experiencia
     FROM procesos
     WHERE archivado = 0
+        AND (cerrado_manualmente = 0 OR cerrado_manualmente IS NULL)
+        AND (fecha_cierre IS NULL OR fecha_cierre >= CURDATE())
     ORDER BY fecha_publicacion DESC
 ";
 
