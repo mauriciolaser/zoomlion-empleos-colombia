@@ -32,7 +32,7 @@ export default function useCrearPostulacion() {
 
     try {
       // URL correcta usando VITE_API_URL que ya incluye la barra final
-      const endpoint = `${import.meta.env.VITE_API_URL}?action=crear-postulacion`;
+      const endpoint = `${import.meta.env.VITE_API_URL}/?action=crear-postulacion`;
       console.log('[useCrearPostulacion] POST', endpoint);
 
       const res = await fetch(endpoint, {
