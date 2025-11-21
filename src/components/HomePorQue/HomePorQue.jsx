@@ -9,7 +9,7 @@ const items = [
   {
     img: porque1,
     title: 'PRESENCIA GLOBAL, IMPACTO LOCAL',
-    desc: 'Únete a una marca global que mueve el desarrollo del Perú.',
+    desc: 'Únete a una marca global que mueve el desarrollo de Colombia.',
   },
   {
     img: porque2,

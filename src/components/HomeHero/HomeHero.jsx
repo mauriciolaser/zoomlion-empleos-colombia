@@ -8,7 +8,7 @@ const HomeHero = ({ scrollToContact, scrollToListings }) => {
       <div className={styles.left}>
         <h2 className={styles.title}>TE ESTAMOS<br></br>BUSCANDO</h2>
         <p className={styles.subtitle}>
-          Trae tu talento al mejor equipo<br></br>de profesionales en Perú y el mundo.
+          Trae tu talento al mejor equipo<br></br>de profesionales en Colombia y el mundo.
         </p>
         <div className={styles.actions}>
           <button

@@ -115,7 +115,7 @@ if (es_bot() &&
 
     // 5) Mapear campos para SEO
     if (\$tipo === 'modelo') {
-        \$title       = \$item['nombre']      ?? 'Zoomlion Perú';
+        \$title       = \$item['nombre']      ?? 'Zoomlion Colombia';
         \$description = \$item['descripcion'] ?? '';
         \$keywords    = \$item['keywords']    ?? '';
         if (!empty(\$item['imagen_card']['url'])) {
