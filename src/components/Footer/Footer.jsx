@@ -34,7 +34,7 @@ const Footer = () => {
           <img src={logo} alt="ZoomLion Logo" className={styles.logo} />
           <div className={styles.social}>
             <motion.a
-              href="https://www.facebook.com/people/Zoomlion-Colombia/"
+              href="https://www.facebook.com/profile.php?id=61557421790864"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.iconWrapper}
