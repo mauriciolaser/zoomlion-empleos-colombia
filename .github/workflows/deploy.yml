@@ -65,7 +65,7 @@ jobs:
           protocol:             ftp
           port:                 21
           local-dir:            dist/
-          server-dir:           empleos.zoomlion.com.pe/
+          server-dir:           empleos.zoomlion.com.co/
           security:             loose
           dangerous-clean-slate: false
 

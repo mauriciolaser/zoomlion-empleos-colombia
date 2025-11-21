@@ -8,8 +8,8 @@ error_reporting(E_ALL);
 // 2) CORS / Preflight
 $originesPermitidos = [
     'http://localhost:5173',
-    'https://empleos.zoomlion.com.pe',
-    'https://dashboard.zoomlion.com.pe'
+    'https://empleos.zoomlion.com.co',
+    'https://dashboard.zoomlion.com.co'
 ];
 
 $origen = $_SERVER['HTTP_ORIGIN'] ?? '';

@@ -63,7 +63,7 @@ const ftpConfig = {
   host:        localConfig.FTP_HOST,
   port:        localConfig.FTP_PORT || 21,
   localRoot:   BUILD_DIR_NAME,      // <-- ¡Solo 'dist', no ruta absoluta!
-  remoteRoot:  "/public_html/empleos.zoomlion.com.pe",
+  remoteRoot:  "/public_html/empleos.zoomlion.com.co",
   include:     ["*", "**/*"],
   deleteRemote:false,
   forcePasv:   true

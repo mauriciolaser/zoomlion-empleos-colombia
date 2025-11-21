@@ -34,7 +34,7 @@ const Footer = () => {
           <img src={logo} alt="ZoomLion Logo" className={styles.logo} />
           <div className={styles.social}>
             <motion.a
-              href="https://facebook.com/ZoomlionPeruRegion"
+              href="https://www.facebook.com/people/Zoomlion-Colombia/"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.iconWrapper}
@@ -43,7 +43,7 @@ const Footer = () => {
               <FaFacebookF className={styles.icon} />
             </motion.a>
             <motion.a
-              href="https://instagram.com/zoomlion.peru"
+              href="https://www.instagram.com/zoomlioncolombia/"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.iconWrapper}
@@ -52,7 +52,7 @@ const Footer = () => {
               <FaInstagram className={styles.icon} />
             </motion.a>
             <motion.a
-              href="https://www.linkedin.com/company/zoomlion-peru/"
+              href="https://www.linkedin.com/company/zoomlion-colombia"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.iconWrapper}
@@ -74,10 +74,10 @@ const Footer = () => {
 
         {/* Columna 2: Contacto (teléfono, correo, dirección) */}
         <div className={styles.column}>
-          <p className={styles.text}>+5112131330</p>
-          <p className={styles.text}>empleos@zoomlion.com.pe</p>
+          <p className={styles.text}>+573018115298</p>
+          <p className={styles.text}>empleos@zoomlion.com.co</p>
           <p className={styles.text}>
-            Calle las Orquídeas 675, Oficina 1202. Lima, 15046 - San Isidro
+            Carrera 7 # 155c - 20 North Point Torre E 4401-02, Bogotá
           </p>
         </div>
 
@@ -92,7 +92,7 @@ const Footer = () => {
             © 2025 ZoomLion Heavy Industry SAC
           </a>
           <a
-            href="https://www.zoomlion.com.pe/privacidad/privacidad_peru.pdf"
+            href="https://www.zoomlion.com.co/privacidad/privacidad_colombia.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.link}

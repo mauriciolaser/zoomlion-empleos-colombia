@@ -16,7 +16,7 @@ use Dotenv\Dotenv;
 use Dotenv\Exception\InvalidPathException;
 
 /* 1. Intenta cargar .env de producción */
-$prodDir = '/home/zoomlionpe/credenciales.empleos.zoomlion.com.pe';
+$prodDir = '/home/zoomlioncolombia/credenciales.empleos.zoomlion.com.co';
 if (is_readable("$prodDir/.env")) {
     try { Dotenv::createMutable($prodDir)->load(); }
     catch (InvalidPathException $e) { error_log($e->getMessage()); }
@@ -35,7 +35,7 @@ if (!isset($_ENV['DB_HOST'])) {
 $dbHost = $_ENV['DB_HOST']     ?? 'localhost';
 $dbUser = $_ENV['DB_USER']     ?? 'root';
 $dbPass = $_ENV['DB_PASSWORD'] ?? '';
-$dbName = $_ENV['DB_NAME']     ?? 'zlcpanel_empleos_db';
+$dbName = $_ENV['DB_NAME']     ?? 'zoomlioncolombia_empleos';
 
 define('DB_HOST', $dbHost);
 define('DB_USER', $dbUser);
